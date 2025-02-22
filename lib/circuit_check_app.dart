@@ -1,4 +1,5 @@
 import 'package:circuit_check_app/screens/setup/setup_route.dart';
+import 'package:circuit_check_app/theme/circuit_check_app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,35 +20,8 @@ class CircuitCheckApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        colorScheme: ColorScheme.light(
-          primary: Colors.grey[200]!,
-          onPrimary: Colors.grey[900]!,
-        ),
-        useMaterial3: true,
-        fontFamily: 'Dots',
-        snackBarTheme: SnackBarThemeData(
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        colorScheme: ColorScheme.dark(
-          primary: Colors.grey[900]!,
-          onPrimary: Colors.grey[200]!,
-        ),
-        useMaterial3: true,
-        snackBarTheme: SnackBarThemeData(
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
+      theme: CircuitCheckAppTheme.lightTheme,
+      darkTheme: CircuitCheckAppTheme.darkTheme,
       home: const SetupRoute(),
     );
   }

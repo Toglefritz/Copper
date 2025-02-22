@@ -31,8 +31,3 @@ flutter:
 
   assets:
     - assets/
-  
-  fonts:
-    - family: Dots
-      fonts:
-        - asset: assets/fonts/RalewayDots-Regular.ttf

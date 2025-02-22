@@ -25,6 +25,15 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            AppLocalizations.of(context)!.homeTitle,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+        ),
+      ),
       body: PCBFilePicker(
         onFileSelected: state.handleFileSelected,
         onDropzoneViewCreated: (DropzoneViewController controller) => state.dropzoneViewController = controller,

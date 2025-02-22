@@ -3,6 +3,10 @@
     "@dragAndDropFile": {
         "description": "Provides instructions for providing a PCB design file to the app."
     },
+    "homeTitle": "Circuit Check",
+    "@homeTitle": {
+        "description": "Title of the home page."
+    },
     "unsupportedFileFormatError": "Unsupported file format. Please provide a PCB design file in the .kicad_pcb format.",
     "@unsupportedFileFormatError": {
         "description": "Error message displayed when a file is provided in an unsupported format."
