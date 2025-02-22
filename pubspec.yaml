@@ -8,9 +8,13 @@ environment:
   sdk: ^3.6.1
 
 dependencies:
+  # Allows for selecting files from the file system
+  file_picker: ^9.0.0
   # The Flutter SDK
   flutter:
     sdk: flutter
+  # Allows files to be dragged and dropped into the Flutter app
+  flutter_dropzone: ^4.2.1
   # Used to define localizable strings
   flutter_localizations:
     sdk: flutter
@@ -27,3 +31,8 @@ flutter:
 
   assets:
     - assets/
+  
+  fonts:
+    - family: Dots
+      fonts:
+        - asset: assets/fonts/RalewayDots-Regular.ttf

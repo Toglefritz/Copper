@@ -26,6 +26,13 @@ class CircuitCheckApp extends StatelessWidget {
           onPrimary: Colors.grey[900]!,
         ),
         useMaterial3: true,
+        fontFamily: 'Dots',
+        snackBarTheme: SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -34,6 +41,12 @@ class CircuitCheckApp extends StatelessWidget {
           onPrimary: Colors.grey[200]!,
         ),
         useMaterial3: true,
+        snackBarTheme: SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
       ),
       home: const SetupRoute(),
     );

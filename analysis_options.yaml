@@ -6,3 +6,4 @@ linter:
     always_use_package_imports: false
     omit_local_variable_types: false
     prefer_int_literals: false
+    avoid_setters_without_getters: false
