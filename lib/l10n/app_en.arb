@@ -1,18 +1,22 @@
 {
-    "dragAndDropFile": "Browse or drag and drop a .kicad_pcb file here",
-    "@dragAndDropFile": {
-        "description": "Provides instructions for providing a PCB design file to the app."
-    },
-    "homeTitle": "Circuit Check",
-    "@homeTitle": {
-        "description": "Title of the home page."
-    },
-    "parsingMessage": "Parsing the PCB design file...",
-    "@parsingMessage": {
-        "description": "Message displayed when the app is parsing the PCB design file."
-    },
-    "unsupportedFileFormatError": "Unsupported file format. Please provide a PCB design file in the .kicad_pcb format.",
-    "@unsupportedFileFormatError": {
-        "description": "Error message displayed when a file is provided in an unsupported format."
-    }
+  "analysisMessage": "Analyzing the PCB design...",
+  "@analysisMessage": {
+    "description": "Message displayed when the app is analyzing the PCB design."
+  },
+  "dragAndDropFile": "Browse or drag and drop a .kicad_pcb file here",
+  "@dragAndDropFile": {
+    "description": "Provides instructions for providing a PCB design file to the app."
+  },
+  "homeTitle": "Circuit Check",
+  "@homeTitle": {
+    "description": "Title of the home page."
+  },
+  "parsingMessage": "Parsing the PCB design file...",
+  "@parsingMessage": {
+    "description": "Message displayed when the app is parsing the PCB design file."
+  },
+  "unsupportedFileFormatError": "Unsupported file format. Please provide a PCB design file in the .kicad_pcb format.",
+  "@unsupportedFileFormatError": {
+    "description": "Error message displayed when a file is provided in an unsupported format."
+  }
 }

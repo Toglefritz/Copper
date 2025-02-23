@@ -1,7 +1,9 @@
 import 'package:circuit_check_app/screens/parsing/parsing_route.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_parser.dart';
 import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_design.dart';
+import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_parser.dart';
 import 'package:flutter/material.dart';
+
+import '../analysis/analysis_route.dart';
 import 'parsing_view.dart';
 
 /// Controller for the [ParsingRoute].
@@ -16,7 +18,7 @@ class ParsingController extends State<ParsingRoute> {
 
   /// Parses the PCB design file.
   ///
-  /// This method is responsible for parsing the PCB design file provided by the user. The file is parsed and the 
+  /// This method is responsible for parsing the PCB design file provided by the user. The file is parsed and the
   /// results are stored in the [KiCadPCBDesign] object.
   void _parsePcbDesignFile() {
     // TODO(Toglefritz): Determine PCB file format
@@ -29,10 +31,14 @@ class ParsingController extends State<ParsingRoute> {
 
   /// Navigates to the screen for generating a report.
   void _navigateToReportGenerator(KiCadPCBDesign pcbDesign) {
-    /* Navigator.pushReplacement(
+    Navigator.pushReplacement(
       context,
-      MaterialPageRoute<void>(builder: (context) => const HomeRoute()),
-    ); */
+      MaterialPageRoute<void>(
+        builder: (context) => AnalysisRoute(
+          pcbDesign: pcbDesign,
+        ),
+      ),
+    );
   }
 
   @override
