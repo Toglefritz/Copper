@@ -7,6 +7,10 @@
     "@homeTitle": {
         "description": "Title of the home page."
     },
+    "parsingMessage": "Parsing the PCB design file...",
+    "@parsingMessage": {
+        "description": "Message displayed when the app is parsing the PCB design file."
+    },
     "unsupportedFileFormatError": "Unsupported file format. Please provide a PCB design file in the .kicad_pcb format.",
     "@unsupportedFileFormatError": {
         "description": "Error message displayed when a file is provided in an unsupported format."

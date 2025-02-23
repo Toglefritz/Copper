@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:circuit_check_app/screens/home/home_route.dart';
 import 'package:circuit_check_app/screens/home/home_view.dart';
+import 'package:circuit_check_app/screens/parsing/parsing_route.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -12,8 +13,8 @@ class HomeController extends State<HomeRoute> {
   /// app.
   late DropzoneViewController _dropzoneViewController;
 
-  /// Initializes the controller when the widget is first created.
-  /// Sets the [DropzoneViewController] for the [DropzoneView] widget.
+  /// Initializes the controller when the widget is first created. Sets the [DropzoneViewController] for the 
+  /// [DropzoneView] widget.
   set dropzoneViewController(DropzoneViewController controller) {
     _dropzoneViewController = controller;
   }
@@ -24,17 +25,19 @@ class HomeController extends State<HomeRoute> {
   /// dropping a file onto the app. This function handles the former method of providing a file.
   Future<void> handleFileSelected(PlatformFile filePath) async {
     // Read the contents of the file
-    final String fileContents = await readFileAsString(filePath);
+    final String fileContents = await _readFileAsString(filePath);
 
-    // TODO(Toglefritz): Navigate to the file parsing screen
-    debugPrint('File contents: $fileContents');
+    // Navigate to the file parsing screen.
+    _navigateToParsingScreen(fileContents);
   }
 
   /// Reads the contents of a file as a string on web platforms.
-  Future<String> readFileAsString(PlatformFile file) async {
+  Future<String> _readFileAsString(PlatformFile file) async {
     final Uint8List fileData = file.bytes!;
 
-    return String.fromCharCodes(fileData);
+    final String fileContents = String.fromCharCodes(fileData);
+
+    return fileContents;
   }
 
   /// Handles a file being dropped onto the app.
@@ -62,8 +65,20 @@ class HomeController extends State<HomeRoute> {
     // Convert the file data to a string.
     final String fileContents = String.fromCharCodes(fileData);
 
-    // TODO(Toglefritz): Navigate to the file parsing screen
-    debugPrint('File contents: $fileContents');
+    // Navigate to the file parsing screen.
+    _navigateToParsingScreen(fileContents);
+  }
+
+  /// Navigates to the screen for parsing the content of the provided PCB design file.
+  void _navigateToParsingScreen(String fileContents) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => ParsingRoute(
+          fileContents: fileContents,
+        ),
+      ),
+    );
   }
 
   @override
