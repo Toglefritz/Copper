@@ -6,9 +6,13 @@ import 'parsing_controller.dart';
 class ParsingRoute extends StatefulWidget {
   /// Creates an instance of [ParsingRoute].
   const ParsingRoute({
+    required this.fileName,
     required this.fileContents,
     super.key,
   });
+
+  /// The name of the PCB design file provided to the app.
+  final String fileName;
 
   /// The contents of a PCB design file.
   final String fileContents;

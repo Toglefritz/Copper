@@ -13,7 +13,7 @@ class HomeController extends State<HomeRoute> {
   /// app.
   late DropzoneViewController _dropzoneViewController;
 
-  /// Initializes the controller when the widget is first created. Sets the [DropzoneViewController] for the 
+  /// Initializes the controller when the widget is first created. Sets the [DropzoneViewController] for the
   /// [DropzoneView] widget.
   set dropzoneViewController(DropzoneViewController controller) {
     _dropzoneViewController = controller;
@@ -23,12 +23,18 @@ class HomeController extends State<HomeRoute> {
   ///
   /// The user can provide a PCB design file by selecting a file from the device's file system or by dragging and
   /// dropping a file onto the app. This function handles the former method of providing a file.
-  Future<void> handleFileSelected(PlatformFile filePath) async {
+  Future<void> handleFileSelected(PlatformFile file) async {
+    // Get the name of the file.
+    final String fileName = file.name;
+
     // Read the contents of the file
-    final String fileContents = await _readFileAsString(filePath);
+    final String fileContents = await _readFileAsString(file);
 
     // Navigate to the file parsing screen.
-    _navigateToParsingScreen(fileContents);
+    _navigateToParsingScreen(
+      fileName: fileName,
+      fileContents: fileContents,
+    );
   }
 
   /// Reads the contents of a file as a string on web platforms.
@@ -66,15 +72,19 @@ class HomeController extends State<HomeRoute> {
     final String fileContents = String.fromCharCodes(fileData);
 
     // Navigate to the file parsing screen.
-    _navigateToParsingScreen(fileContents);
+    _navigateToParsingScreen(
+      fileName: fileName,
+      fileContents: fileContents,
+    );
   }
 
   /// Navigates to the screen for parsing the content of the provided PCB design file.
-  void _navigateToParsingScreen(String fileContents) {
+  void _navigateToParsingScreen({required String fileName, required String fileContents}) {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute<void>(
         builder: (BuildContext context) => ParsingRoute(
+          fileName: fileName,
           fileContents: fileContents,
         ),
       ),

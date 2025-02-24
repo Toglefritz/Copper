@@ -3,13 +3,33 @@
   "@analysisMessage": {
     "description": "Message displayed when the app is analyzing the PCB design."
   },
+  "componentsTitle": "Components",
+  "@componentsTitle": {
+    "description": "Title of the components section of the overview screen."
+  },
+  "connectionsTitle": "Connections",
+  "@connectionsTitle": {
+    "description": "Title of the schematic view section of the overview screen."
+  },
+  "descriptionTitle": "Description",
+  "@descriptionTitle": {
+    "description": "Title of the description section of the overview screen."
+  },
   "dragAndDropFile": "Browse or drag and drop a .kicad_pcb file here",
   "@dragAndDropFile": {
     "description": "Provides instructions for providing a PCB design file to the app."
   },
+  "fileNameTitle": "File Name",
+  "@fileNameTitle": {
+    "description": "Title of the file name section of the overview screen."
+  },
   "homeTitle": "Circuit Check",
   "@homeTitle": {
     "description": "Title of the home page."
+  },
+  "padsTitle": "Pads",
+  "@padsTitle": {
+    "description": "Title of the pads section of the overview screen."
   },
   "parsingMessage": "Parsing the PCB design file...",
   "@parsingMessage": {

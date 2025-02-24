@@ -2,6 +2,7 @@ import 'package:circuit_check_app/screens/home/components/pcb_file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../theme/insets.dart';
 import 'home_controller.dart';
 import 'home_route.dart';
 
@@ -27,7 +28,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(Insets.medium),
           child: Text(
             AppLocalizations.of(context)!.homeTitle,
             style: Theme.of(context).textTheme.headlineMedium,
