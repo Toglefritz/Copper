@@ -5,6 +5,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+    paths:
+      - 'copper_app/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -48,5 +50,5 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "build/web"
+          app_location: "copper_app/build/web"
           output_location: "" # Empty because Flutter outputs static assets directly
