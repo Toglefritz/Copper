@@ -33,6 +33,12 @@ jobs:
         with:
           flutter-version: '3.29.0'
 
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localization files
+        run: flutter gen-l10n
+
       - name: Build Flutter web app
         run: flutter build web --release
 
