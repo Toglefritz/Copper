@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 0)
+  (lib (name "circuit_check_example-eagle-import")(type "KiCad")(uri "${KIPRJMOD}/circuit_check_example-eagle-import.kicad_sym")(options "")(descr ""))
+)
