@@ -1,5 +1,5 @@
-import 'package:circuit_check_app/screens/home/home_route.dart';
-import 'package:circuit_check_app/screens/setup/setup_route.dart';
+import 'package:copper_app/screens/home/home_route.dart';
+import 'package:copper_app/screens/setup/setup_route.dart';
 import 'package:flutter/material.dart';
 import 'setup_view.dart';
 

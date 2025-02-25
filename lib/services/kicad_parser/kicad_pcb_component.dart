@@ -1,6 +1,6 @@
-import 'package:circuit_check_app/services/kicad_parser/kicad_component_pad.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_entity.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_layer.dart';
+import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
+import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
+import 'package:copper_app/services/kicad_parser/kicad_layer.dart';
 import 'package:collection/collection.dart';
 
 import 'kicad_pcb_component_position.dart';
@@ -113,27 +113,34 @@ class KiCadPCBComponent extends KiCadEntity {
     final List<dynamic>? descriptionElement =
         data.firstWhereOrNull((dynamic element) => element is List && element.first == 'descr') as List<dynamic>?;
     // Get the description string from the description data.
-    final String? description = descriptionElement != null && descriptionElement.length > 1 ? descriptionElement[1] as String : null;
+    final String? description =
+        descriptionElement != null && descriptionElement.length > 1 ? descriptionElement[1] as String : null;
 
     // Get a list of properties for the component. This is a list of elements in the array for which the first element
     // is the string 'property'. There will typically be multiple 'property' elements in the array.
-    final List<List<dynamic>> propertyElements = data.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'property').toList();
+    final List<List<dynamic>> propertyElements =
+        data.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'property').toList();
 
     // Get the reference property of the component. This is the first element in the list for which the second element
     // is the string 'Reference'.
-    final List<dynamic>? referenceElement = propertyElements.firstWhereOrNull((List<dynamic> element) => element.length > 2 && element[1] == 'Reference');
+    final List<dynamic>? referenceElement =
+        propertyElements.firstWhereOrNull((List<dynamic> element) => element.length > 2 && element[1] == 'Reference');
     // Get the reference property value from the reference element.
-    final String? reference = referenceElement != null && referenceElement.length > 2 ? referenceElement[2] as String : null;
+    final String? reference =
+        referenceElement != null && referenceElement.length > 2 ? referenceElement[2] as String : null;
 
     // Get the value property of the component. This is the first element in the list for which the second element
     // is the string 'Value'.
-    final List<dynamic>? valueElement = propertyElements.firstWhereOrNull((List<dynamic> element) => element.length > 2 && element[1] == 'Value');
+    final List<dynamic>? valueElement =
+        propertyElements.firstWhereOrNull((List<dynamic> element) => element.length > 2 && element[1] == 'Value');
     // Get the value property value from the value element.
-    final String? value = valueElement != null && valueElement.length > 2 && valueElement[2] is String ? valueElement[2] as String : null;
+    final String? value =
+        valueElement != null && valueElement.length > 2 && valueElement[2] is String ? valueElement[2] as String : null;
 
     // Get the list of pads associated with the component. This is a list of elements in the array for which the first
     // element is the string 'pad'. There may be multiple 'pad' elements in the array.
-    final List<List<dynamic>> padElements = data.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'pad').toList();
+    final List<List<dynamic>> padElements =
+        data.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'pad').toList();
     // Convert the pad data into a list of KiCadComponentPad objects.
     final List<KiCadComponentPad> pads = padElements.map(KiCadComponentPad.fromSExpr).toList();
 

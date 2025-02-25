@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_net.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
 import 'package:collection/collection.dart';
 
 /// Represents a single pad of a component in a KiCAD PCB design.
@@ -66,7 +66,8 @@ class KiCadComponentPad {
 
     // Get the net array from the S-Expression data. The net array is the first element for which the first element
     // is the string 'net'.
-    final List<dynamic>? netData = data.firstWhereOrNull((dynamic element) => element is List && element.first == 'net') as List<dynamic>?;
+    final List<dynamic>? netData =
+        data.firstWhereOrNull((dynamic element) => element is List && element.first == 'net') as List<dynamic>?;
     // Convert the net data to a KiCadPCBNet instance.
     final KiCadPCBNet? net = netData != null ? KiCadPCBNet.fromSExpr(netData) : null;
 

@@ -1,5 +1,8 @@
-# Circuit Check
-Circuit Check is a web application built in Flutter that helps engineers analyze and improve their KiCad PCB designs. By parsing `.kicad_pcb` files, the application extracts key design information and uses Azure AI Services to provide insights, detect errors, and suggest optimizations.
+# Copper
+
+<img src="assets/copper_icon_48.png"/>
+
+**Copper** is a web application built in Flutter that helps engineers analyze and improve their KiCad PCB designs. By parsing `.kicad_pcb` files, the application extracts key design information and uses Azure AI Services to provide insights, detect errors, and suggest optimizations.
 
 ## Features
 - 📁 **Upload and Parse KiCad PCB Files** – Extracts design details from .kicad_pcb files.
@@ -99,7 +102,7 @@ flutter run -d chrome
 ## Roadmap & Future Enhancements
 
 🚀 Upcoming Features:
-- **Automated Fix Suggestions** – Apply design fixes directly from Circuit Check.
+- **Automated Fix Suggestions** – Apply design fixes directly from Copper.
 - **Real-Time KiCad Plugin** – Direct integration with KiCad for instant feedback.
 - **Custom Rule Configuration** – Allow users to define custom DRC/ERC checks.
 

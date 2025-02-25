@@ -1,4 +1,4 @@
-name: circuit_check_app
+name: copper_app
 description: "A PCB Design Analysis Tool"
 publish_to: 'none'
 

@@ -1,6 +1,6 @@
-import 'package:circuit_check_app/components/dotted_lines/dotted_divider.dart';
-import 'package:circuit_check_app/screens/design_overview/components/schematic/schematic_view.dart';
-import 'package:circuit_check_app/theme/insets.dart';
+import 'package:copper_app/components/dotted_lines/dotted_divider.dart';
+import 'package:copper_app/screens/design_overview/components/schematic/schematic_view.dart';
+import 'package:copper_app/theme/insets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,12 +21,22 @@ class DesignOverviewView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.all(Insets.medium),
-          child: Text(
-            AppLocalizations.of(context)!.homeTitle,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(Insets.medium),
+              child: Image.asset(
+                'assets/copper_icon_48.png',
+              ),
+            ),
+            Text(
+              AppLocalizations.of(context)!.homeTitle,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ],
         ),
       ),
       body: Center(

@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_component.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_component.dart';
 import 'package:flutter/material.dart';
 
 /// A custom painter widget that visualizes the electrical connections among components in a PCB design.

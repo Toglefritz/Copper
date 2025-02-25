@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:circuit_check_app/screens/home/home_route.dart';
-import 'package:circuit_check_app/screens/home/home_view.dart';
-import 'package:circuit_check_app/screens/parsing/parsing_route.dart';
+import 'package:copper_app/screens/home/home_route.dart';
+import 'package:copper_app/screens/home/home_view.dart';
+import 'package:copper_app/screens/parsing/parsing_route.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';

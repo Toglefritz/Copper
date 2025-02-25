@@ -1,5 +1,5 @@
-import 'package:circuit_check_app/components/loaders/pulsing_grid_loader.dart';
-import 'package:circuit_check_app/theme/insets.dart';
+import 'package:copper_app/components/loaders/pulsing_grid_loader.dart';
+import 'package:copper_app/theme/insets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

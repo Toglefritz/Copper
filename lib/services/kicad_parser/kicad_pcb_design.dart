@@ -1,7 +1,7 @@
-import 'package:circuit_check_app/services/kicad_parser/kicad_entity.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_component.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_layer.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_net.dart';
+import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_component.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_layer.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
 import 'package:collection/collection.dart';
 
 /// Represents a KiCAD PCB Design.
@@ -84,34 +84,44 @@ class KiCadPCBDesign extends KiCadEntity {
 
     // Get the version from the parsed data. This will be the first item in the array for which the first element
     // is the string 'version'.
-    final List<dynamic>? versionElement = kiCadData.firstWhereOrNull((dynamic element) => element.first == 'version') as List<dynamic>?;
+    final List<dynamic>? versionElement =
+        kiCadData.firstWhereOrNull((dynamic element) => element.first == 'version') as List<dynamic>?;
     final String? version = versionElement?.elementAt(1) as String?;
 
     // Get the generator from the parsed data. This will be the first item in the array for which the first element
     // is the string 'generator'.
-    final List<dynamic>? generatorElement = kiCadData.firstWhereOrNull((dynamic element) => element.first == 'generator') as List<dynamic>?;
+    final List<dynamic>? generatorElement =
+        kiCadData.firstWhereOrNull((dynamic element) => element.first == 'generator') as List<dynamic>?;
     final String? generator = generatorElement?.elementAt(1) as String?;
 
     // Get the generator version from the parsed data. This will be the first item in the array for which the first element
     // is the string 'generator_version'.
-    final List<dynamic>? generatorVersionElement = kiCadData.firstWhereOrNull((dynamic element) => element.first == 'generator_version') as List<dynamic>?;
+    final List<dynamic>? generatorVersionElement =
+        kiCadData.firstWhereOrNull((dynamic element) => element.first == 'generator_version') as List<dynamic>?;
     final String? generatorVersion = generatorVersionElement?.elementAt(1) as String?;
 
     // Get the element in the data containing the layers. This is the first element in the array for which the first
     // element is the string 'layers'.
-    final List<dynamic>? layersElement = kiCadData.firstWhereOrNull((dynamic element) => element.first == 'layers') as List<dynamic>?;
+    final List<dynamic>? layersElement =
+        kiCadData.firstWhereOrNull((dynamic element) => element.first == 'layers') as List<dynamic>?;
     // Convert the layers data into a list of KiCadPCBLayer objects.
-    final List<KiCadPCBLayer> layers = layersElement?.sublist(1).map((dynamic layerData) => KiCadPCBLayer.fromSExpr(layerData as List<dynamic>)).toList() ?? <KiCadPCBLayer>[];
+    final List<KiCadPCBLayer> layers = layersElement
+            ?.sublist(1)
+            .map((dynamic layerData) => KiCadPCBLayer.fromSExpr(layerData as List<dynamic>))
+            .toList() ??
+        <KiCadPCBLayer>[];
 
     // Get a list of modules in the PCB design. This is a list of elements in the array for which the first element
     // is the string 'footprint'. There will typically be multiple 'footprint' elements in the array.
-    final List<List<dynamic>> moduleElements = kiCadData.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'footprint').toList();
+    final List<List<dynamic>> moduleElements =
+        kiCadData.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'footprint').toList();
     // Convert the module data into a list of KiCadPCBComponent objects.
     final List<KiCadPCBComponent> components = moduleElements.map(KiCadPCBComponent.fromSExpr).toList();
 
     // Get a list of nets in the PCB design. This is a list of elements in the array for which the first element
     // is the string 'net'. There will typically be multiple 'net' elements in the array.
-    final List<List<dynamic>> netElements = kiCadData.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'net').toList();
+    final List<List<dynamic>> netElements =
+        kiCadData.whereType<List<dynamic>>().where((List<dynamic> element) => element.first == 'net').toList();
     // Convert the net data into a list of KiCadPCBNet objects.
     final List<KiCadPCBNet> nets = netElements.map(KiCadPCBNet.fromSExpr).toList();
 

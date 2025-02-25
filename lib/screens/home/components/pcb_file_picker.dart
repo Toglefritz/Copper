@@ -1,5 +1,5 @@
-import 'package:circuit_check_app/components/dotted_lines/dotted_box_border.dart';
-import 'package:circuit_check_app/theme/insets.dart';
+import 'package:copper_app/components/dotted_lines/dotted_box_border.dart';
+import 'package:copper_app/theme/insets.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';

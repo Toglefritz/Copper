@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/screens/home/components/pcb_file_picker.dart';
+import 'package:copper_app/screens/home/components/pcb_file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,12 +27,22 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.all(Insets.medium),
-          child: Text(
-            AppLocalizations.of(context)!.homeTitle,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(Insets.medium),
+              child: Image.asset(
+                'assets/copper_icon_48.png',
+              ),
+            ),
+            Text(
+              AppLocalizations.of(context)!.homeTitle,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ],
         ),
       ),
       body: PCBFilePicker(

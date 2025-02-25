@@ -1,11 +1,11 @@
-import 'package:circuit_check_app/circuit_check_app.dart';
+import 'package:copper_app/copper_app.dart';
 import 'package:flutter/material.dart';
 
 /// The entry point of the application.
 /// 
-/// The [main] function initializes the app's core servies before running the [CircuitCheckApp] widget.
+/// The [main] function initializes the app's core servies before running the [CopperApp] widget.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const CircuitCheckApp());
+  runApp(const CopperApp());
 }

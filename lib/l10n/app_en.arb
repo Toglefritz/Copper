@@ -23,7 +23,7 @@
   "@fileNameTitle": {
     "description": "Title of the file name section of the overview screen."
   },
-  "homeTitle": "Circuit Check",
+  "homeTitle": "Copper",
   "@homeTitle": {
     "description": "Title of the home page."
   },

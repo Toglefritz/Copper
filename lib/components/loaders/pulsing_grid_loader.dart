@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/components/loaders/delay_tween.dart';
+import 'package:copper_app/components/loaders/delay_tween.dart';
 import 'package:flutter/widgets.dart';
 
 /// A widget that displays a perpetual loading indicator pulsing in a grid pattern.

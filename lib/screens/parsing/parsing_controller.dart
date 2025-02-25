@@ -1,6 +1,6 @@
-import 'package:circuit_check_app/screens/parsing/parsing_route.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_design.dart';
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_parser.dart';
+import 'package:copper_app/screens/parsing/parsing_route.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_design.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_parser.dart';
 import 'package:flutter/material.dart';
 import '../design_overview/design_overview_route.dart';
 import 'parsing_view.dart';

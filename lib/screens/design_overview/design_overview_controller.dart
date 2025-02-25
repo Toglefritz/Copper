@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/services/kicad_parser/kicad_component_pad.dart';
+import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
 import 'package:flutter/material.dart';
 import '../../services/kicad_parser/kicad_pcb_component.dart';
 import 'design_overview_route.dart';

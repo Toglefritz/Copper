@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/services/kicad_parser/kicad_pcb_component.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_component.dart';
 import 'package:flutter/material.dart';
 
 import 'schematic_painter.dart';
@@ -32,7 +32,7 @@ class SchematicView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Calculate the number of columns and rows needed to display the components in a grid layout. This is used to 
+    // Calculate the number of columns and rows needed to display the components in a grid layout. This is used to
     // determine the required size of the `CustomPaint` widget.
     const double gridSpacing = 180.0;
     const int columns = 5;

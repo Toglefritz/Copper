@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// This class provides the theme for the Circuit Check app based on the current brightness. Static getters are provided
 /// for both light and dark themes.
-class CircuitCheckAppTheme {
+class CopperAppTheme {
   /// The light theme for the Circuit Check app.
   static ThemeData get lightTheme => ThemeData(
         brightness: Brightness.light,

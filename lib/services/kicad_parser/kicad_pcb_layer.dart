@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/services/kicad_parser/kicad_entity.dart';
+import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
 
 import 'kicad_layer.dart';
 

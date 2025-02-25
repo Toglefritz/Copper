@@ -6,18 +6,18 @@
     "configurations": [
 
         {
-            "name": "circuit_check_app (debug mode)",
+            "name": "copper_app (debug mode)",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "circuit_check_app (profile mode)",
+            "name": "copper_app (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "circuit_check_app (release mode)",
+            "name": "copper_app (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

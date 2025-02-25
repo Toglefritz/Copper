@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/components/dotted_lines/dotted_line_painter.dart';
+import 'package:copper_app/components/dotted_lines/dotted_line_painter.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that draws a horizontal dotted divider line.

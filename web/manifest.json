@@ -1,11 +1,11 @@
 {
-    "name": "circuit_check_app",
-    "short_name": "circuit_check_app",
+    "name": "copper_app",
+    "short_name": "copper_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A PCB Design Analysis Tool.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

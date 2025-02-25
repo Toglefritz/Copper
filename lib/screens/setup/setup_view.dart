@@ -1,4 +1,4 @@
-import 'package:circuit_check_app/components/loaders/pulsing_grid_loader.dart';
+import 'package:copper_app/components/loaders/pulsing_grid_loader.dart';
 import 'package:flutter/material.dart';
 
 import 'setup_controller.dart';
