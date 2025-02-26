@@ -1,6 +1,6 @@
 # Copper
 
-<img src="assets/copper_icon_48.png"/>
+<img src="copper_app/assets/copper_icon_48.png"/>
 
 **Copper** is a web application built in Flutter that helps engineers analyze and improve their KiCad PCB designs. By parsing PCB design files, the application extracts key design information and uses Azure AI Services to provide insights, detect errors, and suggest optimizations.
 

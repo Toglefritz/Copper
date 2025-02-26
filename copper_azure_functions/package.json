@@ -2,8 +2,14 @@
   "name": "",
   "version": "",
   "description": "",
-  "scripts" : {
+  "scripts": {
     "test": "echo \"No tests yet...\""
   },
-  "author": ""
+  "author": "",
+  "dependencies": {
+    "@azure/identity": "^4.7.0",
+    "@azure/keyvault-secrets": "^4.9.0",
+    "@azure/openai": "^2.0.0",
+    "axios": "^1.7.9"
+  }
 }

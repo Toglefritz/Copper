@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Azure Functions local settings
+/copper_azure_functions/local.settings.json
+
+node_modules/

@@ -1,7 +1,9 @@
 {
   "IsEncrypted": false,
   "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "node",
-    "AzureWebJobsStorage": ""
+    "AZURE_OPENAI_ENDPOINT": "https://copper.openai.azure.com/",
+    "KEY_VAULT_NAME": "Copper"
   }
 }
