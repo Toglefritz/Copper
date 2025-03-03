@@ -1,8 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_component.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_layer.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
-import 'package:collection/collection.dart';
 
 /// Represents a KiCAD PCB Design.
 ///

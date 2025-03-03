@@ -1,3 +1,4 @@
+import 'package:copper_app/components/dotted_lines/dotted_outlined_border.dart';
 import 'package:flutter/material.dart';
 
 /// This class provides the theme for the Circuit Check app based on the current brightness. Static getters are provided
@@ -20,6 +21,15 @@ class CopperAppTheme {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            shape: WidgetStateProperty.all<OutlinedBorder>(
+              DottedOutlinedBorder(
+                color: Colors.grey[200]!,
+              ),
+            ),
+          ),
+        ),
       );
 
   /// The dark theme for the Circuit Check app.
@@ -37,6 +47,15 @@ class CopperAppTheme {
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            shape: WidgetStateProperty.all<OutlinedBorder>(
+              DottedOutlinedBorder(
+                color: Colors.grey[900]!,
+              ),
+            ),
           ),
         ),
       );

@@ -1,4 +1,7 @@
+import 'package:copper_app/screens/onboarding/onboarding_route.dart';
 import 'package:copper_app/screens/setup/setup_route.dart';
+import 'package:copper_app/services/authentication/authentication_service.dart';
+import 'package:copper_app/services/authentication/models/user.dart';
 import 'package:copper_app/theme/copper_app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +25,19 @@ class CopperApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: CopperAppTheme.lightTheme,
       darkTheme: CopperAppTheme.darkTheme,
-      home: const SetupRoute(),
+      home: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: StreamBuilder<User?>(
+          stream: AuthenticationService.authStateChanges,
+          builder: (BuildContext context, AsyncSnapshot<User?> authStateSnapshot) {
+            if (authStateSnapshot.hasData) {
+              return const SetupRoute();
+            } else {
+              return const OnboardingRoute();
+            }
+          },
+        ),
+      ),
     );
   }
 }

@@ -27,6 +27,18 @@
   "@homeTitle": {
     "description": "Title of the home page."
   },
+  "onboardingSubtitle": "Analyze, troubleshoot, and optimize your PCB designs.",
+  "@onboardingSubtitle": {
+    "description": "Subtitle of the onboarding screen."
+  },
+  "onboardingButton": "Get Started",
+  "@onboardingButton": {
+    "description": "Text of the button that starts the onboarding process."
+  },
+  "onboardingTitle": "Welcome to Copper!",
+  "@onboardingTitle": {
+    "description": "Title of the onboarding screen."
+  },
   "padsTitle": "Pads",
   "@padsTitle": {
     "description": "Title of the pads section of the overview screen."

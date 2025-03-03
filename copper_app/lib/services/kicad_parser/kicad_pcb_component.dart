@@ -1,7 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
 import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
 import 'package:copper_app/services/kicad_parser/kicad_layer.dart';
-import 'package:collection/collection.dart';
 
 import 'kicad_pcb_component_position.dart';
 

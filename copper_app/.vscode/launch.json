@@ -1,26 +1,29 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
 
         {
             "name": "copper_app (debug mode)",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            // This port needs to be the same for every run so a redirect URI can be registered with Azure Entra ID
+            "args": ["--web-port=49430"]
         },
         {
             "name": "copper_app (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            // This port needs to be the same for every run so a redirect URI can be registered with Azure Entra ID
+            "args": ["--web-port=49430"]
         },
         {
             "name": "copper_app (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            // This port needs to be the same for every run so a redirect URI can be registered with Azure Entra ID
+            "args": ["--web-port=49430"]
         }
     ]
 }

@@ -1,5 +1,5 @@
-import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
 import 'package:collection/collection.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
 
 /// Represents a single pad of a component in a KiCAD PCB design.
 ///

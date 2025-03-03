@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Redirect</title>
+</head>
+<body>
+<script>
+    // Extract the authorization code from the URL.
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    // Post the authorization code back to the main window.
+    if (code) {
+      window.opener.postMessage(window.location.href, '*');
+      window.close();
+    }
+</script>
+</body>
+</html>
