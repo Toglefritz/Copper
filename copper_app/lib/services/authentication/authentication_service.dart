@@ -8,6 +8,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:web/web.dart' as web;
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// A service for authenticating users with Microsoft.
 ///
@@ -56,6 +57,39 @@ class AuthenticationService {
   /// can listen to this stream to respond to changes in the user's authentication state.
   static Stream<User?> get authStateChanges => _authStateController.stream;
 
+  /// Initializes the authentication service.
+  ///
+  /// This method is called when the application starts. It checks if the user has a refresh token stored on the device.
+  /// If a refresh token is found, the method attempts to refresh the user's access token. If the refresh is successful,
+  /// the method emits the user's authentication state on the [authStateChanges] stream. If the refresh fails, the method
+  /// emits a `null` value on the stream.
+  static Future<void> initialize() async {
+    // Attempt to get the refresh token from the device.
+    final String? refreshToken = await _getRefreshToken();
+
+    // If a refresh token is found, attempt to refresh the access token.
+    if (refreshToken != null) {
+      try {
+        final AuthenticationToken authenticationTokens = await _refreshToken(refreshToken);
+
+        // Create a user object from the token.
+        final User user = await _getUser(authenticationTokens);
+
+        // Emit the user object on the auth state stream.
+        _authStateController.add(user);
+
+      // Catch all exceptions of any kind.
+      // ignore: avoid_catches_without_on_clauses
+      } catch (e) {
+        debugPrint('Failed to refresh token: $e');
+
+        _authStateController.add(null);
+      }
+    } else {
+      _authStateController.add(null);
+    }
+  }
+
   /// Authenticates (signs in) the user with Microsoft.
   ///
   /// The process of authenticating the user with Entra ID involves three steps:
@@ -84,6 +118,9 @@ class AuthenticationService {
 
     // Step 2: Obtain an access token
     final AuthenticationToken authenticationTokens = await _getToken(authorizationCode, codeVerifier);
+
+    // Save the refresh token
+    await _saveRefreshToken(authenticationTokens.refreshToken);
 
     // Step 3: Create a user object
     final User user = await _getUser(authenticationTokens);
@@ -264,6 +301,72 @@ class AuthenticationService {
     } catch (e) {
       debugPrint('Failed to get user: $e');
 
+      rethrow;
+    }
+  }
+
+  /// Saves the refresh token to the device.
+  /// 
+  /// The refresh token is used to obtain a new access token when the current one expires. The refresh token is stored
+  /// securely on the device and is used to obtain a new access token without requiring the user to sign in again.
+  static Future<void> _saveRefreshToken(String refreshToken) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('refresh_token', refreshToken);
+  }
+
+  /// Gets the refresh token from the device.
+  /// 
+  /// The refresh token is used to obtain a new access token when the current one expires. The refresh token is stored
+  /// securely on the device and is used to obtain a new access token without requiring the user to sign in again.
+  static Future<String?> _getRefreshToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('refresh_token');
+  }
+
+  /// Refreshes the access token using the refresh token.
+  /// 
+  /// To create a good user experience, this app has mechanisms in place allowing the user to remain authenticated
+  /// with the app between sessions. This session persistance is managed by storing the refresh token obtained from
+  /// authentication with Microsoft Entra ID. The refresh token can be used to obtain a new access token without
+  /// requiring the user to sign in again. Therefore, by storing the refresh token, the app can maintain the user's
+  /// authenticated session between app launches.
+  /// 
+  /// This method uses the refresh token to obtain a new access token. If the refresh is successful, the method returns
+  /// the new access token. If the refresh fails, the method throws an exception.
+  static Future<AuthenticationToken> _refreshToken(String refreshToken) async {
+    debugPrint('Refreshing token...');
+
+    try {
+      // Build the URL for the SSO system.
+      final Uri tokenUrl = Uri.https('login.microsoftonline.com', '/${AuthConfiguration.tenantId}/oauth2/v2.0/token');
+
+      // Send a REST request to the SSO system to refresh the token.
+      final Response response = await post(
+        tokenUrl,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'client_id': AuthConfiguration.clientId,
+          'scope': 'openid profile email offline_access',
+          'refresh_token': refreshToken,
+          'grant_type': 'refresh_token',
+          'Origin': '*',
+        },
+      ).timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        final String responseBody = response.body;
+        final Map<String, dynamic> json = jsonDecode(responseBody) as Map<String, dynamic>;
+        final AuthenticationToken token = AuthenticationToken.fromJson(json);
+
+        debugPrint('Successfully refreshed token: ${token.token}');
+
+        return token;
+      } else {
+        debugPrint('Failed to refresh token with status code, ${response.statusCode}, and message ${response.body}');
+        throw Exception('Failed to refresh token with status code ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Failed to refresh token: $e');
       rethrow;
     }
   }

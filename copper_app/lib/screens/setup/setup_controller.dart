@@ -22,5 +22,5 @@ class SetupController extends State<SetupRoute> {
   }
 
   @override
-  Widget build(BuildContext context) => SetupView(this);
+  Widget build(BuildContext context) => const SetupView();
 }

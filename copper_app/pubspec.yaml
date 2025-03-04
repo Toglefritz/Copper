@@ -26,6 +26,8 @@ dependencies:
     sdk: flutter
   # Used to make REST API request
   http: ^1.3.0
+  # Plugin for reading and writing simple key-value pairs
+  shared_preferences: ^2.5.2
   # Provides access to browser resources
   web: ^1.1.1
 
