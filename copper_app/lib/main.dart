@@ -7,5 +7,5 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(CopperApp());
+  runApp(const CopperApp());
 }
