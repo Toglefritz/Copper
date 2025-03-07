@@ -79,10 +79,12 @@ class DesignOverviewView extends StatelessWidget {
                   // Display an icon if there is no project description
                   if (state.projectDescription == null || state.projectDescription!.isEmpty)
                     IgnorePointer(
-                      child: Icon(
-                        Icons.edit_note_outlined,
-                        size: 48.0,
-                        color: Theme.of(context).disabledColor,
+                      child: Text(
+                        AppLocalizations.of(context)!.enterDescription,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                              fontStyle: FontStyle.italic
+                            ),
                       ),
                     ),
                 ],
