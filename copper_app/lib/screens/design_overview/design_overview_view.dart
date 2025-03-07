@@ -39,83 +39,125 @@ class DesignOverviewView extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
-        child: Container(
-          constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.6,
-          ),
-          decoration: BoxDecoration(
-            border: DottedBoxBorder(color: Theme.of(context).colorScheme.onPrimary),
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          margin: const EdgeInsets.all(Insets.small),
-          child: CustomScrollView(
-            slivers: [
-              // File name
-              SliverToBoxAdapter(
-                child: ListTile(
-                  leading: Text(
-                    AppLocalizations.of(context)!.fileNameTitle,
-                    style: Theme.of(context).textTheme.headlineSmall,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // PCB project description field
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width * 0.6,
+                    ),
+                    decoration: BoxDecoration(
+                      border: DottedBoxBorder(color: Theme.of(context).colorScheme.onPrimary),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    margin: const EdgeInsets.all(Insets.small),
+                    child: TextField(
+                      controller: state.projectDescriptionController,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.projectDescriptionTitle,
+                        contentPadding: const EdgeInsets.all(Insets.small),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.save_outlined),
+                          onPressed: state.onProjectDescriptionSave,
+                        ),
+                      ),
+                      minLines: 3,
+                      maxLines: null,
+                      onChanged: (value) => state.projectDescription = value,
+                    ),
                   ),
-                  trailing: Text(
-                    state.widget.fileName,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
+
+                  // Display an icon if there is no project description
+                  if (state.projectDescription == null || state.projectDescription!.isEmpty)
+                    IgnorePointer(
+                      child: Icon(
+                        Icons.edit_note_outlined,
+                        size: 48.0,
+                        color: Theme.of(context).disabledColor,
+                      ),
+                    ),
+                ],
               ),
 
-              // Section divider
-              SliverToBoxAdapter(
-                child: DottedDivider(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  dotSize: 0.5,
+              // Information about the PCB design
+              Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.6,
                 ),
-              ),
+                decoration: BoxDecoration(
+                  border: DottedBoxBorder(color: Theme.of(context).colorScheme.onPrimary),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                margin: const EdgeInsets.all(Insets.small),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // File name
+                    ListTile(
+                      leading: Text(
+                        AppLocalizations.of(context)!.fileNameTitle,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      trailing: Text(
+                        state.widget.fileName,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
 
-              // List of components
-              SliverToBoxAdapter(
-                child: ListTile(
-                  leading: Text(
-                    AppLocalizations.of(context)!.componentsTitle,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ),
-              ),
+                    // Section divider
+                    DottedDivider(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      dotSize: 0.5,
+                    ),
 
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: Insets.small),
-                sliver: SliverToBoxAdapter(
-                  child: ComponentsTable(state: state),
-                ),
-              ),
+                    // List of components
+                    ListTile(
+                      leading: Text(
+                        AppLocalizations.of(context)!.componentsTitle,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
 
-              // Section divider
-              SliverPadding(
-                padding: const EdgeInsets.only(top: Insets.medium),
-                sliver: SliverToBoxAdapter(
-                  child: DottedDivider(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    dotSize: 0.5,
-                  ),
-                ),
-              ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: Insets.small),
+                      child: ComponentsTable(state: state),
+                    ),
 
-              // Schematic view
-              SliverToBoxAdapter(
-                child: ListTile(
-                  leading: Text(
-                    AppLocalizations.of(context)!.connectionsTitle,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: SchematicView(
-                  components: state.getComponentsWithPads(),
-                  componentColor: Theme.of(context).colorScheme.onPrimary,
-                  connectionColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.3),
-                  textColor: Theme.of(context).colorScheme.onPrimary,
+                    // Section divider
+                    Padding(
+                      padding: const EdgeInsets.only(top: Insets.medium),
+                      child: DottedDivider(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        dotSize: 0.5,
+                      ),
+                    ),
+
+                    // Schematic view
+                    ListTile(
+                      leading: Text(
+                        AppLocalizations.of(context)!.connectionsTitle,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: Insets.large),
+                      child: SchematicView(
+                        components: state.getComponentsWithPads(),
+                        componentColor: Theme.of(context).colorScheme.onPrimary,
+                        connectionColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.3),
+                        textColor: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -6,6 +6,42 @@ import 'design_overview_view.dart';
 
 /// Controller for the [DesignOverviewRoute].
 class DesignOverviewController extends State<DesignOverviewRoute> {
+  // TODO(Toglefritz): Check if information about the project is available from the cloud
+
+  /// A controller for the text form field used to edit the project description.
+  final TextEditingController projectDescriptionController = TextEditingController();
+
+  /// A description of the PCB project. This description is provided by the user in the Copper app rather than
+  /// coming from the PCB design file. It the user has not provided a description, this field will be empty.
+  String? _projectDescription;
+
+  /// A setter for the project description.
+  set projectDescription(String? description) {
+    setState(() {
+      _projectDescription = description;
+    });
+  }
+
+  /// A getter for the project description.
+  String? get projectDescription => _projectDescription;
+
+  @override
+  void initState() {
+    // Set the initial value for the project description text field.
+    projectDescriptionController.text = projectDescription ?? '';
+
+    super.initState();
+  }
+
+  /// Called when the user saves a new project description.
+  Future<void> onProjectDescriptionSave() async {
+    // Save the new project description from the text field.
+    projectDescription = projectDescriptionController.text;
+
+    // Save the project description to the cloud.
+    // TODO(Toglefritz): Implement saving the project description to the cloud
+  }
+
   /// Returns a list of PCB components with pads.
   ///
   /// Components (a.k.a. footprints) in a PCB design file can include electrical components placed onto the PCB,
