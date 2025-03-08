@@ -8,7 +8,6 @@ import '../../../components/dotted_lines/dotted_box_border.dart';
 import '../design_overview_controller.dart';
 import 'components_table.dart';
 
-
 /// A widget displaying an overview of the PCB design.
 class PcbInformationContainer extends StatelessWidget {
   /// Creates an instance of [PcbInformationContainer].

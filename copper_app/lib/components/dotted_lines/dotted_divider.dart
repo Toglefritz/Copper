@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 /// A widget that draws a horizontal dotted divider line.
 ///
-/// The [DottedDivider] widget creates a horizontal line with a dotted pattern,
-/// which can be customized by specifying the dot size, dot gap, and color.
+/// The [DottedDivider] widget creates a horizontal line with a dotted pattern, which can be customized by specifying
+/// the dot size, dot gap, and color.
 class DottedDivider extends StatelessWidget {
   /// The height of the divider.
   final double height;

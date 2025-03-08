@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// The entry point of the application.
 /// 
-/// The [main] function initializes the app's core servies before running the [CopperApp] widget.
+/// The [main] function initializes the app's core services before running the [CopperApp] widget.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

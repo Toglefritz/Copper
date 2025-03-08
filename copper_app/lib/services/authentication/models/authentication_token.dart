@@ -19,8 +19,8 @@ class AuthenticationToken {
   /// The scopes for which the [token] provides valid access. Separate scopes are separated by spaces.
   final String scopes;
 
-  /// An OAuth 2.0 refresh token. The app can use this token to acquire other access tokens after the current access token
-  /// expires. Refresh tokens are long-lived. They can maintain access to resources for extended periods.
+  /// An OAuth 2.0 refresh token. The app can use this token to acquire other access tokens after the current access
+  /// token expires. Refresh tokens are long-lived. They can maintain access to resources for extended periods.
   final String refreshToken;
 
   /// A JSON Web Token (JWT). The app can decode the segments of this token to request information about the user who

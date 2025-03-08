@@ -5,7 +5,9 @@ import 'package:flutter/widgets.dart';
 class PulsingGridLoader extends StatefulWidget {
   /// Creates an instance of the [PulsingGridLoader] widget.
   ///
-  /// The [color] and [itemBuilder] parameters are mutually exclusive. You must specify either a [color] or an [itemBuilder].
+  /// The [color] and [itemBuilder] parameters are mutually exclusive. You must specify either a [color] or an
+  /// [itemBuilder].
+  ///
   /// The [size] parameter defaults to 50.0.
   /// The [duration] parameter defaults to 1500 milliseconds.
   const PulsingGridLoader({

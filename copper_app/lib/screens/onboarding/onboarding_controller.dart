@@ -7,8 +7,8 @@ import 'onboarding_view.dart';
 class OnboardingController extends State<OnboardingRoute> {
   /// Handles taps on the primary CTA button on the onboarding screen.
   ///
-  /// Before the user can engage with this app, they must authenticate with the Copper system. This method is called when
-  /// the user taps the primary CTA button on the onboarding screen. It triggers the authentication process.
+  /// Before the user can engage with this app, they must authenticate with the Copper system. This method is called
+  /// when the user taps the primary CTA button on the onboarding screen. It triggers the authentication process.
   Future<void> handleOnboardingComplete() async {
     await AuthenticationService.authenticate();
   }

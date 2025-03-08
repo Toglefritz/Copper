@@ -14,7 +14,7 @@ import 'package:web/web.dart' as web;
 /// A service for authenticating users with Microsoft.
 ///
 /// This application uses Microsoft's Azure Entra ID authentication system. This service provides methods for
-/// managing authenticated sesions, including signing in and out, and listening for changes to the user's
+/// managing authenticated sessions, including signing in and out, and listening for changes to the user's
 /// authentication state.
 ///
 /// ### Authentication Flow
@@ -59,7 +59,7 @@ class AuthenticationService {
   static Stream<User?> get authStateChanges => _authStateController.stream;
 
   /// Cached information for the current authenticated session. Caching this information allows other parts of the app
-  /// to synchrously access the user's information without waiting for the authentication service to fetch it. This
+  /// to synchronously access the user's information without waiting for the authentication service to fetch it. This
   /// is particularly important when the app sends REST API requests to backend services that require the user's
   /// authentication token.
   static AuthenticationToken? cachedToken;
@@ -339,7 +339,7 @@ class AuthenticationService {
   /// Refreshes the access token using the refresh token.
   /// 
   /// To create a good user experience, this app has mechanisms in place allowing the user to remain authenticated
-  /// with the app between sessions. This session persistance is managed by storing the refresh token obtained from
+  /// with the app between sessions. This session persistence is managed by storing the refresh token obtained from
   /// authentication with Microsoft Entra ID. The refresh token can be used to obtain a new access token without
   /// requiring the user to sign in again. Therefore, by storing the refresh token, the app can maintain the user's
   /// authenticated session between app launches.

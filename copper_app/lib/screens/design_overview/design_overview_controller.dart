@@ -105,7 +105,7 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
     return sanitizedDescription;
   }
 
-  /// Handles submisssion of an analysis prompt.
+  /// Handles submission of an analysis prompt.
   /// 
   /// This method is called when the user submits an analysis prompt. It uses the [DesignAnalysisService] to send the
   /// prompt, along with information about the PCB design, to an LLM in Azure Open AI Services. The LLM responds
