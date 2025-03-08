@@ -50,3 +50,4 @@ app.*.map.json
 node_modules/
 copper_app/lib/services/authentication/models/auth_configuration
 copper_app/lib/services/authentication/models/auth_configuration.dart
+/copper_app/build

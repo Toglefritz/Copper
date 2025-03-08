@@ -1,4 +1,3 @@
-
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
 /// Represents the contents of an ID token obtained from authentication against the SSO system.

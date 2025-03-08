@@ -30,6 +30,23 @@ class CopperAppTheme {
             ),
           ),
         ),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.grey[900],
+          selectionColor: Colors.grey[200],
+          selectionHandleColor: Colors.grey[900],
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          floatingLabelStyle: TextStyle(
+            color: Colors.grey[900],
+            fontWeight: FontWeight.bold,
+          ),
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+        ),
       );
 
   /// The dark theme for the Circuit Check app.
@@ -54,6 +71,35 @@ class CopperAppTheme {
             shape: WidgetStateProperty.all<OutlinedBorder>(
               DottedOutlinedBorder(
                 color: Colors.grey[900]!,
+              ),
+            ),
+          ),
+        ),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.grey[200],
+          selectionColor: Colors.grey[900],
+          selectionHandleColor: Colors.grey[200],
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          floatingLabelStyle: TextStyle(
+            color: Colors.grey[200],
+            fontWeight: FontWeight.bold,
+          ),
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+        ),
+        menuTheme: MenuThemeData(
+          style: MenuStyle(
+            backgroundColor: WidgetStateProperty.all<Color>(
+              Colors.grey[800]!,
+            ),
+            shape: WidgetStateProperty.all<OutlinedBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ),

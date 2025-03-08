@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:copper_app/screens/home/home_route.dart';
 import 'package:copper_app/screens/home/home_view.dart';
 import 'package:copper_app/screens/parsing/parsing_route.dart';
+import 'package:copper_app/services/authentication/authentication_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -90,6 +91,9 @@ class HomeController extends State<HomeRoute> {
       ),
     );
   }
+
+  /// Handles the user logging out of the app.
+  void onLogout() => AuthenticationService().logout();
 
   @override
   Widget build(BuildContext context) => HomeView(this);

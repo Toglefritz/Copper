@@ -19,6 +19,10 @@
   "@dragAndDropFile": {
     "description": "Provides instructions for providing a PCB design file to the app."
   },
+  "enterDescription": "Enter a description",
+  "@enterDescription": {
+    "description": "Placeholder text for the project description input field."
+  },
   "fileNameTitle": "File Name",
   "@fileNameTitle": {
     "description": "Title of the file name section of the overview screen."
@@ -26,6 +30,14 @@
   "homeTitle": "Copper",
   "@homeTitle": {
     "description": "Title of the home page."
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": "Text of the button that logs the user out."
+  },
+  "noProjectDescription": "No project description available.",
+  "@noProjectDescription": {
+    "description": "Message displayed when no project description is available."
   },
   "onboardingSubtitle": "Analyze, troubleshoot, and optimize your PCB designs.",
   "@onboardingSubtitle": {
@@ -46,6 +58,14 @@
   "parsingMessage": "Parsing the PCB design file...",
   "@parsingMessage": {
     "description": "Message displayed when the app is parsing the PCB design file."
+  },
+  "projectAnalysisPromptTitle": "Project Analysis",
+  "@projectAnalysisPromptTitle": {
+    "description": "Title of the project analysis prompt."
+  },
+  "projectDescriptionTitle": "Project Description",
+  "@projectDescriptionTitle": {
+    "description": "Title of the project description section of the overview screen."
   },
   "unsupportedFileFormatError": "Unsupported file format. Please provide a PCB design file in the .kicad_pcb format.",
   "@unsupportedFileFormatError": {

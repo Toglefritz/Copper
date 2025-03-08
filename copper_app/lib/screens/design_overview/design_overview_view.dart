@@ -2,6 +2,7 @@ import 'package:copper_app/theme/insets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'components/analysis_prompt_field.dart';
 import 'components/pcb_information_container.dart';
 import 'components/project_description_field.dart';
 import 'design_overview_controller.dart';
@@ -47,6 +48,9 @@ class DesignOverviewView extends StatelessWidget {
 
               // Information about the PCB design
               PcbInformationContainer(state: state),
+
+              // Project analysis prompt field
+              AnalysisPromptField(state: state),
             ],
           ),
         ),

@@ -371,7 +371,7 @@ class AuthenticationService {
         final Map<String, dynamic> json = jsonDecode(responseBody) as Map<String, dynamic>;
         final AuthenticationToken token = AuthenticationToken.fromJson(json);
 
-        debugPrint('Successfully refreshed token: ${token.token}');
+        debugPrint('Successfully refreshed token: ${token.rawIdToken}');
 
         return token;
       } else {

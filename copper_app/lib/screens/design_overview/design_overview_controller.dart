@@ -1,3 +1,4 @@
+import 'package:copper_app/services/design_analysis/design_analysis_service.dart';
 import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
 import 'package:flutter/material.dart';
 import '../../services/kicad_parser/kicad_pcb_component.dart';
@@ -10,6 +11,9 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
 
   /// A controller for the text form field used to edit the project description.
   final TextEditingController projectDescriptionController = TextEditingController();
+
+  /// A controller for the text form field used to edit the project analysis prompt.
+  final TextEditingController projectAnalysisPromptController = TextEditingController();
 
   /// A description of the PCB project. This description is provided by the user in the Copper app rather than
   /// coming from the PCB design file. It the user has not provided a description, this field will be empty.
@@ -99,6 +103,30 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
     sanitizedDescription = sanitizedDescription.replaceAll('\n\n', '\n');
 
     return sanitizedDescription;
+  }
+
+  /// Handles submisssion of an analysis prompt.
+  /// 
+  /// This method is called when the user submits an analysis prompt. It uses the [DesignAnalysisService] to send the
+  /// prompt, along with information about the PCB design, to an LLM in Azure Open AI Services. The LLM responds
+  /// with an analysis of the PCB design based on the prompt and the information provided. This response is displayed
+  /// to the user in the app.
+  Future<void> onAnalysisPromptSubmit() async {
+    // Get the prompt from the text field.
+    final String prompt = projectAnalysisPromptController.text;
+
+    // Get an instance of the DesignAnalysisService to send the prompt to the LLM.
+    final DesignAnalysisService designAnalysisService = DesignAnalysisService();
+
+    // Send the prompt to the LLM and get the response.
+    final String analysisResponse = await designAnalysisService.analyzePCBDesign(
+      pcbDesign: widget.pcbDesign,
+      userQuery: prompt,
+    );
+
+    debugPrint('Analysis response: $analysisResponse');
+
+    // TODO(Toglefritz): Display the analysis response to the user.
   }
 
   @override

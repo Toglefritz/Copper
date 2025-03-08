@@ -27,6 +27,9 @@ class AuthenticationToken {
   /// signed in.
   final IdToken idToken;
 
+  /// The raw ID token string.
+  final String rawIdToken;
+
   /// Initializes a new instance of the [AuthenticationToken] class.
   AuthenticationToken({
     required this.token,
@@ -36,6 +39,7 @@ class AuthenticationToken {
     required this.scopes,
     required this.refreshToken,
     required this.idToken,
+    required this.rawIdToken,
   });
 
   /// Creates a new instance of the [AuthenticationToken] class from a JSON object.
@@ -63,6 +67,7 @@ class AuthenticationToken {
       scopes: json['scope'] as String,
       refreshToken: json['refresh_token'] as String,
       idToken: idToken,
+      rawIdToken: json['id_token'] as String,
     );
   }
 
@@ -84,7 +89,7 @@ class AuthenticationToken {
     };
   }
 
-  /// Returns a representation of the token as a serialized JSONS string.
+  /// Returns a representation of the token as a serialized JSON string.
   @override
   String toString() {
     return toJson().toString();

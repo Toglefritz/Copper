@@ -9,7 +9,8 @@ import '../design_overview_controller.dart';
 class ProjectDescriptionField extends StatelessWidget {
   /// Creates an instance of [ProjectDescriptionField].
   const ProjectDescriptionField({
-    required this.state, super.key,
+    required this.state,
+    super.key,
   });
 
   /// A controller for this view.
@@ -32,14 +33,17 @@ class ProjectDescriptionField extends StatelessWidget {
           child: TextField(
             controller: state.projectDescriptionController,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context)!.projectDescriptionTitle,
               contentPadding: const EdgeInsets.all(Insets.small),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.save_outlined),
-                onPressed: state.onProjectDescriptionSave,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Insets.small),
+                child: IconButton(
+                  icon: const Icon(Icons.save_outlined),
+                  onPressed: state.onProjectDescriptionSave,
+                ),
               ),
             ),
             minLines: 3,
@@ -54,9 +58,9 @@ class ProjectDescriptionField extends StatelessWidget {
             child: Text(
               AppLocalizations.of(context)!.enterDescription,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
-                fontStyle: FontStyle.italic,
-              ),
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                    fontStyle: FontStyle.italic,
+                  ),
             ),
           ),
       ],
