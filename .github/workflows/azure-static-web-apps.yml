@@ -36,13 +36,19 @@ jobs:
           flutter-version: '3.29.0'
 
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          cd copper_app
+          flutter pub get
 
       - name: Generate localization files
-        run: flutter gen-l10n
+        run: |
+          cd copper_app
+          flutter gen-l10n
 
       - name: Build Flutter web app
-        run: flutter build web --release
+        run: |
+          cd copper_app
+          flutter build web --release
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
@@ -50,5 +56,5 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "copper_app/build/web"
+          app_location: "copper_app"
           output_location: "" # Empty because Flutter outputs static assets directly
