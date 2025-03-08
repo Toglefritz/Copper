@@ -44,6 +44,35 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: Insets.medium),
+            child: MenuAnchor(
+              menuChildren: [
+                MenuItemButton(
+                  onPressed: state.onLogout,
+                  child: Text(AppLocalizations.of(context)!.logout),
+                ),
+              ],
+              alignmentOffset: const Offset(
+                -Insets.medium,
+                0.0,
+              ),
+              builder: (_, MenuController controller, Widget? child) {
+                return IconButton(
+                  onPressed: () {
+                    if (controller.isOpen) {
+                      controller.close();
+                    } else {
+                      controller.open();
+                    }
+                  },
+                  icon: const Icon(Icons.more_vert),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       body: PCBFilePicker(
         onFileSelected: state.handleFileSelected,

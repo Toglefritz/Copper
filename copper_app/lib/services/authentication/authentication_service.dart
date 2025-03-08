@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:copper_app/services/authentication/models/auth_configuration.dart';
 import 'package:copper_app/services/authentication/models/authentication_token.dart';
 import 'package:copper_app/services/authentication/models/user.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:web/web.dart' as web;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web/web.dart' as web;
 
 /// A service for authenticating users with Microsoft.
 ///
@@ -57,6 +58,12 @@ class AuthenticationService {
   /// can listen to this stream to respond to changes in the user's authentication state.
   static Stream<User?> get authStateChanges => _authStateController.stream;
 
+  /// Cached information for the current authenticated session. Caching this information allows other parts of the app
+  /// to synchrously access the user's information without waiting for the authentication service to fetch it. This
+  /// is particularly important when the app sends REST API requests to backend services that require the user's
+  /// authentication token.
+  static AuthenticationToken? cachedToken;
+
   /// Initializes the authentication service.
   ///
   /// This method is called when the application starts. It checks if the user has a refresh token stored on the device.
@@ -74,6 +81,9 @@ class AuthenticationService {
 
         // Create a user object from the token.
         final User user = await _getUser(authenticationTokens);
+
+        // Cache the token for later use.
+        cachedToken = authenticationTokens;
 
         // Emit the user object on the auth state stream.
         _authStateController.add(user);
@@ -118,6 +128,9 @@ class AuthenticationService {
 
     // Step 2: Obtain an access token
     final AuthenticationToken authenticationTokens = await _getToken(authorizationCode, codeVerifier);
+
+    // Cache the token for later use.
+    cachedToken = authenticationTokens;
 
     // Save the refresh token
     await _saveRefreshToken(authenticationTokens.refreshToken);
@@ -369,6 +382,23 @@ class AuthenticationService {
       debugPrint('Failed to refresh token: $e');
       rethrow;
     }
+  }
+
+  /// Signs out the user.
+  Future<void> logout() async {
+    debugPrint('Signing out...');
+
+    // Clear the cached token.
+    cachedToken = null;
+
+    // Clear the refresh token from the device.
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('refresh_token');
+
+    // Emit a null value on the auth state stream to indicate that the user is signed out.
+    _authStateController.add(null);
+
+    // TODO(Toglefritz): Invalidate token via logout functionality in Azure
   }
 
   /// Dispose the StreamController when it is no longer needed.
