@@ -1,3 +1,4 @@
+import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_component.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_design.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
@@ -9,6 +10,9 @@ import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
 /// current state of the PCB design. The user's questions/requests are sent alongside this content and the LLM will
 /// generate a response based on the prompt.
 class PromptContent {
+  /// A description of the project proivded by the user.
+  final String? projectDescription;
+
   /// A list of components (footprints) placed on the PCB, described as a list of natural language strings, enabling
   /// the LLM to understand the components present in the design.
   final List<String> componentDescriptions;
@@ -26,6 +30,7 @@ class PromptContent {
     required this.componentDescriptions,
     required this.netDescriptions,
     required this.userQuery,
+    this.projectDescription,
   });
 
   /// Generates a prompt to be sent to an Azure OpenAI Service LLM from the provided [KiCadPCBDesign] object and
@@ -34,9 +39,15 @@ class PromptContent {
     required KiCadPCBDesign pcbDesign,
     required String userQuery,
   }) {
+    // If the user has provided a project description, add it to the prompt.
+    String? projectDescription;
+    if (pcbDesign.projectDescription != null) {
+      projectDescription = 'The user has provided the following project description: ${pcbDesign.projectDescription}. ';
+    }
+
     // Generate component descriptions from the parsed PCB design.
     final List<String> componentDescriptions = [
-      'The PCB design contains the following components. ',
+      'The PCB design contains the following components: ',
     ];
     for (final KiCadPCBComponent component in pcbDesign.components) {
       componentDescriptions.add(
@@ -46,22 +57,31 @@ class PromptContent {
 
     // Generate a list of net descriptions from the parsed PCB design that describe the connections among components.
     final List<String> netDescriptions = [
-      'The PCB design contains the following electrical connections among components. ',
+      'The PCB design contains the following electrical connections among components: ',
     ];
     for (final KiCadPCBNet net in pcbDesign.nets) {
+      // If the net name is null, skip it.
+      if (net.name == null) {
+        continue;
+      }
+
       String netComponentList = 'The ${net.name} net connects the following components: ';
       for (final KiCadPCBComponent component in pcbDesign.components) {
-        if (component.pads.any((pad) => pad.net == net)) {
+        if (component.pads.any((KiCadComponentPad pad) => pad.net?.name == net.name || pad.net?.code == net.code)) {
           netComponentList += '${component.name}, ';
         }
       }
       netDescriptions.add(netComponentList);
     }
 
+    // Add the user's query to the prompt.
+    final String userQueryFormatted = 'The user has provided the following query: $userQuery';
+
     return PromptContent._(
+      projectDescription: projectDescription,
       componentDescriptions: componentDescriptions,
       netDescriptions: netDescriptions,
-      userQuery: userQuery,
+      userQuery: userQueryFormatted,
     );
   }
 
@@ -69,6 +89,11 @@ class PromptContent {
   @override
   String toString() {
     final StringBuffer promptBuffer = StringBuffer();
+
+    // Add the project description to the prompt if it is avaialble.
+    if (projectDescription != null) {
+      promptBuffer.writeln(projectDescription);
+    }
 
     // Add component descriptions to the prompt.
     for (final componentDescription in componentDescriptions) {

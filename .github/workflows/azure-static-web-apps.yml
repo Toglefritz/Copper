@@ -35,6 +35,21 @@ jobs:
         with:
           flutter-version: '3.29.0'
 
+      - name: Create auth_configuration.dart
+        run: |
+          cat <<EOF > copper_app/lib/services/authentication/models/auth_configuration.dart
+          import 'package:flutter/foundation.dart';
+
+          class AuthConfiguration {
+            static const String clientId = '${{ secrets.AUTH_CLIENT_ID }}';
+            static const String tenantId = '${{ secrets.AUTH_TENANT_ID }}';
+            static const String clientSecret = '${{ secrets.AUTH_CLIENT_SECRET }}';
+            static const String redirectUri = kDebugMode
+                ? '${{ secrets.AUTH_REDIRECT_URI_DEBUG }}'
+                : '${{ secrets.AUTH_REDIRECT_URI_RELEASE }}';
+          }
+          EOF
+
       - name: Install dependencies
         run: |
           cd copper_app

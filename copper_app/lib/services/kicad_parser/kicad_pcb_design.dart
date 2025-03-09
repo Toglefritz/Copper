@@ -35,6 +35,10 @@ class KiCadPCBDesign extends KiCadEntity {
     required this.nets,
   });
 
+  /// A description of the PCB project. This description is provided by the user in the Copper app rather than
+  /// coming from the PCB design file. It the user has not provided a description, this field will be empty.
+  String? projectDescription;
+
   /// The version number of the KiCAD file format used to create this PCB design.
   ///
   /// This indicates the schema version of the `.kicad_pcb` file. Different KiCAD versions may introduce changes in the

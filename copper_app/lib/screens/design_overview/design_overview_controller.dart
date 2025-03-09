@@ -15,19 +15,15 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   /// A controller for the text form field used to edit the project analysis prompt.
   final TextEditingController projectAnalysisPromptController = TextEditingController();
 
-  /// A description of the PCB project. This description is provided by the user in the Copper app rather than
-  /// coming from the PCB design file. It the user has not provided a description, this field will be empty.
-  String? _projectDescription;
-
   /// A setter for the project description.
   set projectDescription(String? description) {
     setState(() {
-      _projectDescription = description;
+      widget.pcbDesign.projectDescription = description;
     });
   }
 
   /// A getter for the project description.
-  String? get projectDescription => _projectDescription;
+  String? get projectDescription => widget.pcbDesign.projectDescription;
 
   @override
   void initState() {
@@ -106,7 +102,7 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   }
 
   /// Handles submission of an analysis prompt.
-  /// 
+  ///
   /// This method is called when the user submits an analysis prompt. It uses the [DesignAnalysisService] to send the
   /// prompt, along with information about the PCB design, to an LLM in Azure Open AI Services. The LLM responds
   /// with an analysis of the PCB design based on the prompt and the information provided. This response is displayed
