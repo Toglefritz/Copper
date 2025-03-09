@@ -43,10 +43,8 @@ jobs:
           class AuthConfiguration {
             static const String clientId = '${{ secrets.AUTH_CLIENT_ID }}';
             static const String tenantId = '${{ secrets.AUTH_TENANT_ID }}';
-            static const String clientSecret = '${{ secrets.AUTH_CLIENT_SECRET }}';
-            static const String redirectUri = kDebugMode
-                ? '${{ secrets.AUTH_REDIRECT_URI_DEBUG }}'
-                : '${{ secrets.AUTH_REDIRECT_URI_RELEASE }}';
+            static const String clientSecret = '${{ secrets.AUTH_CLIENT_SECRET }}'.replaceAll("'", "\\'");;
+            static const String redirectUri = '${{ secrets.AUTH_REDIRECT_URI_RELEASE }}';
           }
           EOF
 
