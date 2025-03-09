@@ -15,6 +15,10 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   /// A controller for the text form field used to edit the project analysis prompt.
   final TextEditingController projectAnalysisPromptController = TextEditingController();
 
+  /// Determine if the PCB design is currently being analyzed by the LLM. In other words, this value is true after
+  /// the app sends a request to the LLM and before the LLM responds.
+  bool isAnalyzing = false;
+
   /// A setter for the project description.
   set projectDescription(String? description) {
     setState(() {
@@ -108,6 +112,10 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   /// with an analysis of the PCB design based on the prompt and the information provided. This response is displayed
   /// to the user in the app.
   Future<void> onAnalysisPromptSubmit() async {
+    setState(() {
+      isAnalyzing = true;
+    });
+
     // Get the prompt from the text field.
     final String prompt = projectAnalysisPromptController.text;
 
@@ -123,6 +131,10 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
     debugPrint('Analysis response: $analysisResponse');
 
     // TODO(Toglefritz): Display the analysis response to the user.
+
+    setState(() {
+      isAnalyzing = false;
+    });
   }
 
   @override
