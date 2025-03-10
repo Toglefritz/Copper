@@ -14,7 +14,7 @@ class AnalysisPromptField extends StatelessWidget {
     super.key,
   });
 
-  /// A controller for this view.Ï
+  /// A controller for this view.
   final DesignOverviewController state;
 
   @override

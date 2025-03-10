@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:copper_app/services/authentication/authentication_service.dart';
+import 'package:copper_app/services/design_analysis/models/analysis_response.dart';
 import 'package:copper_app/services/design_analysis/models/prompt_content.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_design.dart';
 import 'package:flutter/rendering.dart';
@@ -28,7 +29,7 @@ class DesignAnalysisService {
   /// Builds and sends a prompt to an Azure OpenAI Service LLM for analyzing a PCB design, and returns the analysis
   /// response.
   // TODO(Toglefritz): Create class to represent the response from the LLM.
-  Future<String> analyzePCBDesign({
+  Future<AnalysisResponse> analyzePCBDesign({
     required KiCadPCBDesign pcbDesign,
     required String userQuery,
   }) async {
@@ -39,7 +40,13 @@ class DesignAnalysisService {
     );
 
     // Send the prompt to the Azure OpenAI Service LLM for analysis.
-    final String analysisResponse = await _sendPromptToLLM(promptContent);
+    final String analysisResponseData = await _sendPromptToLLM(promptContent);
+
+    // Create an instance of AnalysisResponse from the response.
+    final AnalysisResponse analysisResponse = AnalysisResponse(
+      prompt: userQuery,
+      responseData: analysisResponseData,
+    );
 
     return analysisResponse;
   }

@@ -24,6 +24,8 @@ dependencies:
   # Used to define localizable strings
   flutter_localizations:
     sdk: flutter
+  # Renders Markdown content
+  flutter_markdown: ^0.7.6+2
   # Used to make REST API request
   http: ^1.3.0
   # Plugin for reading and writing simple key-value pairs

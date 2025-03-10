@@ -1,4 +1,5 @@
 import 'package:copper_app/services/design_analysis/design_analysis_service.dart';
+import 'package:copper_app/services/design_analysis/models/analysis_response.dart';
 import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
 import 'package:flutter/material.dart';
 import '../../services/kicad_parser/kicad_pcb_component.dart';
@@ -18,6 +19,10 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   /// Determine if the PCB design is currently being analyzed by the LLM. In other words, this value is true after
   /// the app sends a request to the LLM and before the LLM responds.
   bool isAnalyzing = false;
+
+  /// A list of [AnalysisResponse] acting as the history of analysis responses for the current PCB design. This list
+  /// is used to allow the user to easily return to previous analysis results.
+  final List<AnalysisResponse> analysisHistory = [];
 
   /// A setter for the project description.
   set projectDescription(String? description) {
@@ -123,19 +128,38 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
     final DesignAnalysisService designAnalysisService = DesignAnalysisService();
 
     // Send the prompt to the LLM and get the response.
-    final String analysisResponse = await designAnalysisService.analyzePCBDesign(
+    final AnalysisResponse analysisResponse = await designAnalysisService.analyzePCBDesign(
       pcbDesign: widget.pcbDesign,
       userQuery: prompt,
     );
 
-    debugPrint('Analysis response: $analysisResponse');
-
-    // TODO(Toglefritz): Display the analysis response to the user.
+    debugPrint('Analysis response: ${analysisResponse.responseData}');
 
     setState(() {
       isAnalyzing = false;
     });
+
+    if (!mounted) return;
+    await DesignOverviewView.showAnalysisResultsModal(
+      context,
+      analysisResponse,
+    );
+
+    setState(() {
+      // Add the analysis response to the history.
+      analysisHistory.add(analysisResponse);
+
+      // Clear the text field.
+      projectAnalysisPromptController.clear();
+    });
   }
+
+  /// Handles when the user taps on a history item.
+  ///
+  /// When the user selects an item from the analysis history, it is displayed in a modal window. This is the same
+  /// view presented to the user when they first submit an analysis prompt.
+  void onHistoryItemTap(AnalysisResponse analysisResponse) =>
+      DesignOverviewView.showAnalysisResultsModal(context, analysisResponse);
 
   @override
   Widget build(BuildContext context) => DesignOverviewView(this);

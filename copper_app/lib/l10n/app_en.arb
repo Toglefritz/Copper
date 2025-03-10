@@ -3,6 +3,10 @@
   "@analysisMessage": {
     "description": "Message displayed when the app is analyzing the PCB design."
   },
+  "analysisResults": "Analysis Results",
+  "@analysisResults": {
+    "description": "Title of the analysis results history section."
+  },
   "componentsTitle": "Components",
   "@componentsTitle": {
     "description": "Title of the components section of the overview screen."
