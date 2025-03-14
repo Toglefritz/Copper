@@ -26,7 +26,6 @@
 
 const { DefaultAzureCredential } = require("@azure/identity");
 const { SecretClient } = require("@azure/keyvault-secrets");
-const { AzureKeyCredential } = require("@azure/core-auth");
 const axios = require('axios');
 
 // Get the Key Vault name from the environment variables
