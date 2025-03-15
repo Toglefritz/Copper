@@ -24,6 +24,89 @@ This function serves as an HTTP endpoint that accepts a prompt from the caller (
 }
 ```
 
+### createItem
+
+This function creates a new document in Cosmos DB containing information about a PCB design project. Saving information
+in a database allows users in the Copper app to track their ongoing PCB design projects.
+
+#### How it works
+
+1. Receives an HTTP POST request containing a JSON body representing a PCB design project in the Copper app.
+2. Creates a document in Cosmos DB with the provided information.
+3. Returns the newly created document.
+
+#### Example request
+
+```json
+{
+  "version": 20241229,
+  "generator": "pcbnew",
+  "layers": [
+    { "index": 1, "type": "fCu", "purpose": "signal" },
+    { "index": 3, "type": "bCu", "purpose": "signal" }
+  ],
+  "components": [
+    {
+      "name": "SK2812",
+      "layer": "fCu",
+      "position": { "x": 148.5011, "y": 107.1372 },
+      "reference": "U1",
+      "value": "SK2812"
+    }
+  ]
+}
+```
+
+### readItem
+
+This function retrieves information from Cosmos DB using the unique ID provided as a query parameter.
+
+#### How it works
+
+1. Receives a GET request containing the `id` query parameter, which is the unique ID for the document to be retrieved.
+2. Validates that the document being retrieved belongs to the user requesting the document by comparing the user ID
+   in the document to the user ID from the token provided for authentication.
+3. Returns the document data.
+
+### updateItem
+
+This function updates the content of a document in Cosmos DB matching the unique ID provided as a query parameter.
+
+#### How it works
+
+1. Receives a PUT request containing a JSON body that includes, at minimum, the unique ID of the document to be 
+   updated.
+2. Validates that the document being updated belongs to the user requesting the document by comparing the user ID
+   in the document to the user ID from the token provided for authentication.
+3. Updates the document according to the fields provided in the request body.
+4. Returns the updated document.
+
+#### Example request
+
+```json
+{
+  "id": "261b8a6c-11bc-4ed2-b9b8-5970408566ae",
+  "layers": [
+    { "index": 0, "type": "fCu", "purpose": "signal" },
+    { "index": 2, "type": "bCu", "purpose": "signal" },
+    { "index": 3, "type": "test", "purpose": "signal" }
+  ]
+}
+```
+
+### deleteItem
+
+This function is used to delete a document in Cosmos DB with a unique identifier matching the `id` value included as
+a query parameter in the request.
+
+#### How it works
+
+1. Receives a DELETE request containing the `id` query parameter, which is the unique ID for the document to be retrieved.
+2. Validates that the document being retrieved belongs to the user requesting the document by comparing the user ID
+   in the document to the user ID from the token provided for authentication.
+3. Deletes the corresponding document.
+4. Returns a success response.
+
 ## Setup
 
 ### Prerequisites
