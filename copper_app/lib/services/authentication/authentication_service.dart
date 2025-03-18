@@ -284,7 +284,8 @@ class AuthenticationService {
         // Create an access token from the JSON.
         final AuthenticationToken token = AuthenticationToken.fromJson(json);
 
-        debugPrint('Successfully received token: ${token.token}');
+        debugPrint('Successfully received ID token: ${token.rawIdToken}');
+        debugPrint('Successfully received access token: ${token.token}');
 
         // Return the token.
         return token;
@@ -371,7 +372,8 @@ class AuthenticationService {
         final Map<String, dynamic> json = jsonDecode(responseBody) as Map<String, dynamic>;
         final AuthenticationToken token = AuthenticationToken.fromJson(json);
 
-        debugPrint('Successfully refreshed token: ${token.rawIdToken}');
+        debugPrint('Successfully refreshed ID token: ${token.rawIdToken}');
+        debugPrint('Successfully refreshed access token: ${token.token}');
 
         return token;
       } else {

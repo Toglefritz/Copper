@@ -45,11 +45,9 @@ app.*.map.json
 /android/app/release
 
 # Azure Functions local settings
-/copper_azure_functions/local.settings.json
+copper_azure_functions/local.settings.json
 
 node_modules/
 copper_app/lib/services/authentication/models/auth_configuration
 copper_app/lib/services/authentication/models/auth_configuration.dart
-/copper_app/build
-copper_azure_functions/local.settings.json
 /copper_app/build

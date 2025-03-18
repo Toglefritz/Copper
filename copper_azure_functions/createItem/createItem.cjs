@@ -80,13 +80,24 @@ const { v4: uuidv4 } = require("uuid");
  */
 module.exports = async function (context, req) {
   try {
+    // Extract user ID from request headers
     const userId = getUserIdFromRequest(req);
 
-    if (!req.body || !req.body.version || !req.body.generator) {
-      context.res = { status: 400, body: "Missing required fields: version, generator" };
+    // Unauthorized if user ID is missing
+    if (!userId) {
+      context.res = { status: 401, body: "Unauthorized: Invalid or missing authentication." };
+
       return;
     }
 
+    // Validate request body
+    if (!req.body || !req.body.version || !req.body.generator) {
+      context.res = { status: 400, body: "Missing required fields: version, generator" };
+      
+      return;
+    }
+
+    // Create new PCB document
     const newItem = {
       id: uuidv4(), // Generate unique ID
       userId, // Associate with user
@@ -94,16 +105,21 @@ module.exports = async function (context, req) {
       ...req.body, // Include provided PCB data
     };
 
+    context.log("Creating new item:", newItem);
+
+    // Store new item in Cosmos DB
     await container.items.create(newItem);
 
     context.res = { status: 201, body: newItem };
+    context.log("Item created successfully.");
   } catch (err) {
     if (err.message.includes("Unauthorized")) {
       context.res = { status: 401, body: "Unauthorized: Invalid or missing authentication." };
     } else if (err.message.includes("Validation") || err.message.includes("Missing required fields")) {
       context.res = { status: 400, body: "Bad Request: Invalid request data." };
     } else {
-      context.res = { status: 500, body: "Internal Server Error: An unexpected error occurred: " };
+      context.log.error(err);
+      context.res = { status: 500, body: `Internal Server Error: An unexpected error occurred: ${err.message}` };
     }
   }
 };

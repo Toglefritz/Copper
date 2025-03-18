@@ -154,4 +154,30 @@ class KiCadPCBComponent extends KiCadEntity {
       pads: pads,
     );
   }
+
+  /// Returns a `KiCadPCBComponent` object from a JSON representation.
+  factory KiCadPCBComponent.fromJson(Map<String, dynamic> json) {
+    return KiCadPCBComponent(
+      name: json['name'] as String,
+      layer: json['layer'] != null ? KiCadLayer.fromName(json['layer'] as String) : null,
+      position: KiCadPCBComponentPosition.fromJson(json['position'] as Map<String, dynamic>),
+      description: json['description'] as String?,
+      reference: json['reference'] as String?,
+      value: json['value'] as String?,
+      pads: (json['pads'] as List<dynamic>).map((dynamic pad) => KiCadComponentPad.fromJson(pad as Map<String, dynamic>)).toList(),
+    );
+  }
+
+  /// Converts the `KiCadPCBComponent` object to a JSON representation.
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'layer': layer?.name,
+      'position': position.toJson(),
+      'description': description,
+      'reference': reference,
+      'value': value,
+      'pads': pads.map((KiCadComponentPad pad) => pad.toJson()).toList(),
+    };
+  }
 }

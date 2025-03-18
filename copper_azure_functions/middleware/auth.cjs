@@ -27,11 +27,11 @@ function getUserIdFromRequest(req) {
     const decodedUser = Buffer.from(user, "base64").toString("utf-8");
     const userData = JSON.parse(decodedUser);
 
-    // Extract the user ID from the decoded data
-    const userId = userData.userId ?? userData.user_id;
+    // Extract the user ID from the claims
+    const userIdClaim = userData.claims.find(claim => claim.typ === "http://schemas.microsoft.com/identity/claims/objectidentifier");
 
     // Return the user ID or null if not found
-    return userId || null;
+    return userIdClaim ? userIdClaim.val : null;
   } catch (err) {
     throw new Error("Error parsing authentication data.");
   }

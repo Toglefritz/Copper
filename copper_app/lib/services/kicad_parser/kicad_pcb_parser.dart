@@ -28,7 +28,13 @@ class KiCadPCBParser {
     final Map<String, dynamic> parsedData = jsonDecode(jsonEncode(_parseSExpr(sExprString))) as Map<String, dynamic>;
 
     // Create a KiCadPCBDesign object from the parsed data.
-    return KiCadPCBDesign.fromKiCadSExpr(parsedData);
+    final KiCadPCBDesign design = KiCadPCBDesign.fromKiCadSExpr(parsedData)
+
+    // Save the design information to the cloud.
+    ..createCloudDocument();
+
+    // Return the parsed PCB design.
+    return design;
   }
 
   /// Parses an S-Expression formatted string and returns a structured JSON-like object.

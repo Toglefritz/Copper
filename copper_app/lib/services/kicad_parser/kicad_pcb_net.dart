@@ -62,4 +62,20 @@ class KiCadPCBNet extends KiCadEntity {
       name: name,
     );
   }
+
+  /// Returns a `KiCadPCBNet` object from a JSON representation.
+  factory KiCadPCBNet.fromJson(Map<String, dynamic> json) {
+    return KiCadPCBNet(
+      code: json['code'] as int,
+      name: json['name'] as String?,
+    );
+  }
+
+  /// Converts the `KiCadPCBNet` object to a JSON representation.
+  Map<String, dynamic> toJson() {
+    return {
+      'code': code,
+      'name': name,
+    };
+  }
 }

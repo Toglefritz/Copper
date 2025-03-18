@@ -37,4 +37,22 @@ class KiCadPCBComponentPosition {
       rotation: rotation,
     );
   }
+
+  /// Returns a `KiCadPCBComponentPosition` object from a JSON representation.
+  factory KiCadPCBComponentPosition.fromJson(Map<String, dynamic> json) {
+    return KiCadPCBComponentPosition(
+      x: json['x'] as double,
+      y: json['y'] as double,
+      rotation: json['rotation'] as double,
+    );
+  }
+
+  /// Converts the `KiCadPCBComponentPosition` object to a JSON representation.
+  Map<String, dynamic>  toJson() {
+    return {
+      'x': x,
+      'y': y,
+      'rotation': rotation,
+    };
+  }
 }

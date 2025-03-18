@@ -92,4 +92,22 @@ class KiCadPCBLayer extends KiCadEntity {
       purpose: layerPurpose,
     );
   }
+
+  /// Returns a [KiCadPCBLayer] object from a JSON representation.
+  factory KiCadPCBLayer.fromJson(Map<String, dynamic> json) {
+    return KiCadPCBLayer(
+      index: json['index'] as int,
+      type: KiCadLayer.fromName(json['type'] as String),
+      purpose: json['purpose'] as String,
+    );
+  }
+
+  /// Converts the [KiCadPCBLayer] object to a JSON representation.
+  Map<String, dynamic> toJson() {
+    return {
+      'index': index,
+      'type': type?.name,
+      'purpose': purpose,
+    };
+  }
 }

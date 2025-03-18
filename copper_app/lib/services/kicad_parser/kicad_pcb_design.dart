@@ -1,8 +1,10 @@
 import 'package:collection/collection.dart';
+import 'package:copper_app/services/database/database_service.dart';
 import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_component.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_layer.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
+import 'package:flutter/material.dart';
 
 /// Represents a KiCAD PCB Design.
 ///
@@ -33,7 +35,11 @@ class KiCadPCBDesign extends KiCadEntity {
     required this.layers,
     required this.components,
     required this.nets,
+    this.id,
   });
+
+  /// A unique identifier for the design document. This value will only exist once the design is saved to the cloud.
+  String? id;
 
   /// A description of the PCB project. This description is provided by the user in the Copper app rather than
   /// coming from the PCB design file. It the user has not provided a description, this field will be empty.
@@ -137,5 +143,61 @@ class KiCadPCBDesign extends KiCadEntity {
       components: components,
       nets: nets,
     );
+  }
+
+  /// Returns a [KiCadPCBDesign] object from a JSON representation.
+  factory KiCadPCBDesign.fromJson(Map<String, dynamic> json) {
+    return KiCadPCBDesign(
+      id: json['id'] as String?,
+      version: json['version'] as String?,
+      generator: json['generator'] as String?,
+      generatorVersion: json['generatorVersion'] as String?,
+      layers: (json['layers'] as List<dynamic>)
+          .map((dynamic layer) => KiCadPCBLayer.fromJson(layer as Map<String, dynamic>))
+          .toList(),
+      components: (json['components'] as List<dynamic>)
+          .map((dynamic component) => KiCadPCBComponent.fromJson(component as Map<String, dynamic>))
+          .toList(),
+      nets: (json['nets'] as List<dynamic>)
+          .map((dynamic net) => KiCadPCBNet.fromJson(net as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  /// Saves the design to the cloud by creating a new document in the database.
+  ///
+  /// Saving PCB design information used by this app to the cloud backend enables users to access their designs from
+  /// multiple devices and share them with others. Additionally, it allows the Copper infrastructure to provide
+  /// additional information about the PCB design.
+  void createCloudDocument() {
+    debugPrint('Saving PCB design to the cloud.');
+
+    // Save the design to the cloud.
+    try {
+      DatabaseService().saveDesign(this);
+    } catch(e) {
+      debugPrint('Failed to save PCB design to the cloud with error: $e');
+
+      rethrow;
+    }
+  }
+
+  /// Converts the `KiCadPCBDesign` object into a JSON representation.
+  ///
+  /// This method is typically used to save the information represented by this [KiCadPCBDesign] object to a file or
+  /// send it over a network connection. The JSON representation is a structured format that can be easily serialized
+  /// and deserialized.
+  ///
+  /// Note that this JSON object does not represent the full details of the PCB design available in the original
+  /// source document. Instead, it represents the PCB design data format used by the Copper app.
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'version': version,
+      'generator': generator,
+      'generatorVersion': generatorVersion,
+      'layers': layers.map((KiCadPCBLayer layer) => layer.toJson()).toList(),
+      'components': components.map((KiCadPCBComponent component) => component.toJson()).toList(),
+      'nets': nets.map((KiCadPCBNet net) => net.toJson()).toList(),
+    };
   }
 }

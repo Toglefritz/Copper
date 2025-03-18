@@ -77,4 +77,22 @@ class KiCadComponentPad {
       net: net,
     );
   }
+
+  /// Returns a `ComponentPad` object from a JSON representation.
+  factory KiCadComponentPad.fromJson(Map<String, dynamic> json) {
+    return KiCadComponentPad(
+      code: json['code'] as int,
+      type: json['type'] as String,
+      net: KiCadPCBNet.fromJson(json['net'] as Map<String, dynamic>),
+    );
+  }
+
+  /// Converts the `ComponentPad` object to a JSON representation.
+  Map<String, dynamic> toJson() {
+    return {
+      'code': code,
+      'type': type,
+      'net': net?.toJson(),
+    };
+  }
 }
