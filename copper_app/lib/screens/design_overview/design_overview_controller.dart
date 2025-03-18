@@ -1,3 +1,4 @@
+import 'package:copper_app/screens/home/home_route.dart';
 import 'package:copper_app/services/database/database_service.dart';
 import 'package:copper_app/services/design_analysis/design_analysis_service.dart';
 import 'package:copper_app/services/design_analysis/models/analysis_response.dart';
@@ -56,6 +57,14 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
       );
     }
   }
+
+  /// Handles taps on the Copper app logo, which returns to the home screen.
+  void onHome() => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => const HomeRoute(),
+        ),
+      );
 
   /// Returns a list of PCB components with pads.
   ///

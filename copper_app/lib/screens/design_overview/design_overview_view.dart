@@ -68,22 +68,28 @@ class DesignOverviewView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(Insets.medium),
-              child: Image.asset(
-                'assets/copper_icon_48.png',
-              ),
-            ),
-            Text(
-              AppLocalizations.of(context)!.homeTitle,
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
+        title: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: state.onHome,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(Insets.medium),
+                  child: Image.asset(
+                    'assets/copper_icon_48.png',
                   ),
+                ),
+                Text(
+                  AppLocalizations.of(context)!.homeTitle,
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
