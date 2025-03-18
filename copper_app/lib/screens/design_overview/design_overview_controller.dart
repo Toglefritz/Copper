@@ -1,3 +1,4 @@
+import 'package:copper_app/services/database/database_service.dart';
 import 'package:copper_app/services/design_analysis/design_analysis_service.dart';
 import 'package:copper_app/services/design_analysis/models/analysis_response.dart';
 import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
@@ -47,8 +48,13 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
     // Save the new project description from the text field.
     projectDescription = projectDescriptionController.text;
 
-    // Save the project description to the cloud.
-    // TODO(Toglefritz): Implement saving the project description to the cloud
+    if (widget.pcbDesign.id != null && projectDescription != null) {
+      // Save the project description to the cloud.
+      await DatabaseService().updateDescription(
+        id: widget.pcbDesign.id!,
+        description: projectDescription!,
+      );
+    }
   }
 
   /// Returns a list of PCB components with pads.

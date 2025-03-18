@@ -169,12 +169,17 @@ class KiCadPCBDesign extends KiCadEntity {
   /// Saving PCB design information used by this app to the cloud backend enables users to access their designs from
   /// multiple devices and share them with others. Additionally, it allows the Copper infrastructure to provide
   /// additional information about the PCB design.
-  void createCloudDocument() {
+  Future<void> createCloudDocument() async {
     debugPrint('Saving PCB design to the cloud.');
 
     // Save the design to the cloud.
     try {
-      DatabaseService().saveDesign(this);
+      final String documentId = await DatabaseService().saveDesign(this);
+
+      debugPrint('PCB design saved to the cloud with id: $documentId');
+
+      // Update the design id with the document id.
+      id = documentId;
     } catch(e) {
       debugPrint('Failed to save PCB design to the cloud with error: $e');
 

@@ -61,7 +61,13 @@ class DatabaseService {
   }
 
   /// Saves a PCB design project to the database.
-  Future<void> saveDesign(KiCadPCBDesign design) async {
+  ///
+  /// This function is used to create a new document in the Cosmos DB database for the current user. The PCB design
+  /// information is serialized to JSON and sent to the Copper backend for storage.
+  ///
+  /// If the PCB design information is successfully saved to the database, this function returns the unique id of the
+  /// document created.
+  Future<String> saveDesign(KiCadPCBDesign design) async {
     // Send the request to the Copper backend to save the PCB design.
     try {
       // Get a Bearer token from the authenticated session.
@@ -85,6 +91,14 @@ class DatabaseService {
       if (response.statusCode != 201) {
         throw Exception('Failed to save PCB design with status code, ${response.statusCode}');
       }
+      // Otherwise, return the id of the document created.
+      else {
+        // Parse the response body.
+        final String responseBody = response.body;
+        final Map<String, dynamic> responseJson = json.decode(responseBody) as Map<String, dynamic>;
+
+        return responseJson['id'] as String;
+      }
     } catch (e) {
       debugPrint('Failed to save PCB design with error, $e');
 
@@ -93,7 +107,12 @@ class DatabaseService {
   }
 
   /// Updates the description of the PCB design project in the database.
-  Future<void> updateDescription(String description) async {
+  Future<void> updateDescription({
+    required String id,
+    required String description,
+  }) async {
+    debugPrint('Updating PCB design description with id, $id.');
+
     // Send the request to the Copper backend to update the PCB design description.
     try {
       // Get a Bearer token from the authenticated session.
@@ -104,13 +123,14 @@ class DatabaseService {
         throw Exception('No bearer token available for updating PCB design description');
       }
 
-      final Response response = await post(
-        Uri.parse('$_baseUrl/updateItem'),
+      final Response response = await put(
+        Uri.parse('$_baseUrl/updateitem'),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $bearerToken',
         },
         body: json.encode({
+          'id': id,
           'description': description,
         }),
       );
@@ -119,6 +139,8 @@ class DatabaseService {
       if (response.statusCode != 200) {
         throw Exception('Failed to update PCB design description with status code, ${response.statusCode}');
       }
+
+      debugPrint('Successfully updated PCB design description.');
     } catch (e) {
       debugPrint('Failed to update PCB design description with error, $e');
 
