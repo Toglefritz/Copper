@@ -1,4 +1,5 @@
 import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
+import 'package:flutter/cupertino.dart';
 
 /// Represents a PCB Net (Electrical Connection) within a KiCAD PCB design.
 ///
@@ -65,10 +66,15 @@ class KiCadPCBNet extends KiCadEntity {
 
   /// Returns a `KiCadPCBNet` object from a JSON representation.
   factory KiCadPCBNet.fromJson(Map<String, dynamic> json) {
-    return KiCadPCBNet(
-      code: json['code'] as int,
-      name: json['name'] as String?,
-    );
+    try {
+      return KiCadPCBNet(
+        code: json['code'] as int,
+        name: json['name'] as String?,
+      );
+    } catch (e) {
+      debugPrint('Failed to parse KiCadPCBNet from JSON, $json, with error, $e');
+      throw Exception('Failed to parse KiCadPCBNet from JSO, $json, with error, $e');
+    }
   }
 
   /// Converts the `KiCadPCBNet` object to a JSON representation.

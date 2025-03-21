@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:copper_app/services/kicad_parser/kicad_pcb_net.dart';
+import 'package:flutter/cupertino.dart';
 
 /// Represents a single pad of a component in a KiCAD PCB design.
 ///
@@ -80,11 +81,16 @@ class KiCadComponentPad {
 
   /// Returns a `ComponentPad` object from a JSON representation.
   factory KiCadComponentPad.fromJson(Map<String, dynamic> json) {
-    return KiCadComponentPad(
-      code: json['code'] as int,
-      type: json['type'] as String,
-      net: KiCadPCBNet.fromJson(json['net'] as Map<String, dynamic>),
-    );
+    try {
+      return KiCadComponentPad(
+        code: json['code'] as int?,
+        type: json['type'] as String?,
+        net: json['net'] == null ? null : KiCadPCBNet.fromJson(json['net'] as Map<String, dynamic>),
+      );
+    } catch (e) {
+      debugPrint('Failed to parse ComponentPad from JSON, $json, with error, $e');
+      throw Exception('Failed to parse ComponentPad from JSON, $json, with error, $e');
+    }
   }
 
   /// Converts the `ComponentPad` object to a JSON representation.

@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
 import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
 import 'package:copper_app/services/kicad_parser/kicad_layer.dart';
+import 'package:flutter/material.dart';
 
 import 'kicad_pcb_component_position.dart';
 
@@ -157,15 +158,22 @@ class KiCadPCBComponent extends KiCadEntity {
 
   /// Returns a `KiCadPCBComponent` object from a JSON representation.
   factory KiCadPCBComponent.fromJson(Map<String, dynamic> json) {
-    return KiCadPCBComponent(
-      name: json['name'] as String,
-      layer: json['layer'] != null ? KiCadLayer.fromName(json['layer'] as String) : null,
-      position: KiCadPCBComponentPosition.fromJson(json['position'] as Map<String, dynamic>),
-      description: json['description'] as String?,
-      reference: json['reference'] as String?,
-      value: json['value'] as String?,
-      pads: (json['pads'] as List<dynamic>).map((dynamic pad) => KiCadComponentPad.fromJson(pad as Map<String, dynamic>)).toList(),
-    );
+    try {
+      return KiCadPCBComponent(
+        name: json['name'] as String,
+        layer: json['layer'] != null ? KiCadLayer.fromName(json['layer'] as String) : null,
+        position: KiCadPCBComponentPosition.fromJson(json['position'] as Map<String, dynamic>),
+        description: json['description'] as String?,
+        reference: json['reference'] as String?,
+        value: json['value'] as String?,
+        pads: (json['pads'] as List<dynamic>)
+            .map((dynamic pad) => KiCadComponentPad.fromJson(pad as Map<String, dynamic>))
+            .toList(),
+      );
+    } catch (e) {
+      debugPrint('Failed to parse KiCadPCBComponent from JSON, $json, with error, $e');
+      throw FormatException('Failed to parse KiCadPCBComponent from JSON, $json, with error, $e');
+    }
   }
 
   /// Converts the `KiCadPCBComponent` object to a JSON representation.

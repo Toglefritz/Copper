@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 /// Represents the position and rotation of a component on a KiCAD PCB.
 ///
 /// The `KiCadPCBComponentPosition` class stores the X and Y coordinates of a component on a KiCAD PCB layout.
@@ -40,15 +42,20 @@ class KiCadPCBComponentPosition {
 
   /// Returns a `KiCadPCBComponentPosition` object from a JSON representation.
   factory KiCadPCBComponentPosition.fromJson(Map<String, dynamic> json) {
-    return KiCadPCBComponentPosition(
-      x: json['x'] as double,
-      y: json['y'] as double,
-      rotation: json['rotation'] as double,
-    );
+    try {
+      return KiCadPCBComponentPosition(
+        x: json['x'] as double,
+        y: json['y'] as double,
+        rotation: json['rotation'] as double,
+      );
+    } catch (e) {
+      debugPrint('Failed to parse KiCadPCBComponentPosition from JSON, $json, with error, $e');
+      throw FormatException('Failed to parse KiCadPCBComponentPosition from JSON, $json, with error, $e');
+    }
   }
 
   /// Converts the `KiCadPCBComponentPosition` object to a JSON representation.
-  Map<String, dynamic>  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'x': x,
       'y': y,

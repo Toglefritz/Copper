@@ -1,3 +1,4 @@
+import 'dart:js_interop';
 import 'package:collection/collection.dart';
 import 'package:copper_app/services/database/database_service.dart';
 import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
@@ -29,6 +30,7 @@ class KiCadPCBDesign extends KiCadEntity {
   /// This constructor is primarily used internally when parsing the KiCAD file but may also be used in testing or
   /// when manually constructing a PCB representation.
   KiCadPCBDesign({
+    required this.fileName,
     required this.version,
     required this.generator,
     required this.generatorVersion,
@@ -37,6 +39,9 @@ class KiCadPCBDesign extends KiCadEntity {
     required this.nets,
     this.id,
   });
+
+  /// The file name from which the PCB design was parsed.
+  final String fileName;
 
   /// A unique identifier for the design document. This value will only exist once the design is saved to the cloud.
   String? id;
@@ -84,7 +89,10 @@ class KiCadPCBDesign extends KiCadEntity {
   /// converts it into a structured `KiCadPCBDesign` object.
   ///
   /// This method is used within the KiCAD parser system to generate a usable PCB data model.
-  factory KiCadPCBDesign.fromKiCadSExpr(Map<String, dynamic> data) {
+  factory KiCadPCBDesign.fromKiCadSExpr({
+    required Map<String, dynamic> data,
+    required String fileName,
+  }) {
     if (!data.containsKey('kicad_pcb') || data['kicad_pcb'] is! List) {
       throw const FormatException('Invalid KiCad PCB structure');
     }
@@ -136,6 +144,7 @@ class KiCadPCBDesign extends KiCadEntity {
     final List<KiCadPCBNet> nets = netElements.map(KiCadPCBNet.fromSExpr).toList();
 
     return KiCadPCBDesign(
+      fileName: fileName,
       version: version,
       generator: generator,
       generatorVersion: generatorVersion,
@@ -147,21 +156,58 @@ class KiCadPCBDesign extends KiCadEntity {
 
   /// Returns a [KiCadPCBDesign] object from a JSON representation.
   factory KiCadPCBDesign.fromJson(Map<String, dynamic> json) {
-    return KiCadPCBDesign(
-      id: json['id'] as String?,
-      version: json['version'] as String?,
-      generator: json['generator'] as String?,
-      generatorVersion: json['generatorVersion'] as String?,
-      layers: (json['layers'] as List<dynamic>)
-          .map((dynamic layer) => KiCadPCBLayer.fromJson(layer as Map<String, dynamic>))
-          .toList(),
-      components: (json['components'] as List<dynamic>)
-          .map((dynamic component) => KiCadPCBComponent.fromJson(component as Map<String, dynamic>))
-          .toList(),
-      nets: (json['nets'] as List<dynamic>)
-          .map((dynamic net) => KiCadPCBNet.fromJson(net as Map<String, dynamic>))
-          .toList(),
-    );
+    try {
+      // Get the file name from the JSON data.
+      final String fileName = json['fileName'] as String;
+
+      // Get the ID of the design document.
+      final String? id = json['id'] as String?;
+
+      // Get the version from the JSON data.
+      final String? version = json['version'] as String?;
+
+      // Get the generator from the JSON data.
+      final String? generator = json['generator'] as String?;
+
+      // Get the generator version from the JSON data.
+      final String? generatorVersion = json['generatorVersion'] as String?;
+
+      // Get the layers from the JSON data and convert them from a JSAny object to a Dart List.
+      final JSArray layersJs = json['layers'] as JSArray;
+      final List<dynamic> layers = layersJs.toDart;
+      // Convert the layers data into a list of KiCadPCBLayer objects.
+      final List<KiCadPCBLayer> layersList =
+          layers.map((dynamic layer) => KiCadPCBLayer.fromJson(layer as Map<String, dynamic>)).toList();
+
+      // Get the components from the JSON data and convert them from a JSAny object to a Dart List.
+      final JSArray componentsJs = json['components'] as JSArray;
+      final List<dynamic> components = componentsJs.toDart;
+      // Convert the components data into a list of KiCadPCBComponent objects.
+      final List<KiCadPCBComponent> componentsList =
+          components.map((dynamic component) => KiCadPCBComponent.fromJson(component as Map<String, dynamic>)).toList();
+
+      // Get the nets from the JSON data and convert them from a JSAny object to a Dart List.
+      final JSArray netsJs = json['nets'] as JSArray;
+      final List<dynamic> nets = netsJs.toDart;
+      // Convert the nets data into a list of KiCadPCBNet objects.
+      final List<KiCadPCBNet> netsList =
+          nets.map((dynamic net) => KiCadPCBNet.fromJson(net as Map<String, dynamic>)).toList();
+
+      return KiCadPCBDesign(
+        fileName: fileName,
+        id: id,
+        version: version,
+        generator: generator,
+        generatorVersion: generatorVersion,
+        layers: layersList,
+        components: componentsList,
+        nets: netsList,
+      );
+    } catch (e, s) {
+      debugPrint('Failed to create KiCadPCBDesign from JSON with error, $e, and stack trace, $s');
+
+      rethrow;
+    }
   }
 
   /// Saves the design to the cloud by creating a new document in the database.
@@ -180,7 +226,7 @@ class KiCadPCBDesign extends KiCadEntity {
 
       // Update the design id with the document id.
       id = documentId;
-    } catch(e) {
+    } catch (e) {
       debugPrint('Failed to save PCB design to the cloud with error: $e');
 
       rethrow;
@@ -197,6 +243,7 @@ class KiCadPCBDesign extends KiCadEntity {
   /// source document. Instead, it represents the PCB design data format used by the Copper app.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
+      'fileName': fileName,
       'version': version,
       'generator': generator,
       'generatorVersion': generatorVersion,

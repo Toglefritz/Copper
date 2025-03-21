@@ -23,15 +23,21 @@ import 'package:copper_app/services/kicad_parser/kicad_pcb_design.dart';
 /// - Human readability is a design goal.
 class KiCadPCBParser {
   /// Parses the contents of a KiCAD PCB file and returns a [KiCadPCBDesign] object.
-  static KiCadPCBDesign parse(String sExprString) {
+  static KiCadPCBDesign parse({
+    required String sExprString,
+    required String fileName,
+  }) {
     // Parse the S-Expression string into a normalized, structured JSON-like object.
     final Map<String, dynamic> parsedData = jsonDecode(jsonEncode(_parseSExpr(sExprString))) as Map<String, dynamic>;
 
     // Create a KiCadPCBDesign object from the parsed data.
-    final KiCadPCBDesign design = KiCadPCBDesign.fromKiCadSExpr(parsedData)
+    final KiCadPCBDesign design = KiCadPCBDesign.fromKiCadSExpr(
+      data: parsedData,
+      fileName: fileName,
+    )
 
-    // Save the design information to the cloud.
-    ..createCloudDocument();
+      // Save the design information to the cloud.
+      ..createCloudDocument();
 
     // Return the parsed PCB design.
     return design;

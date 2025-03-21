@@ -23,7 +23,10 @@ class ParsingController extends State<ParsingRoute> {
   void _parsePcbDesignFile() {
     // TODO(Toglefritz): Determine PCB file format
 
-    final KiCadPCBDesign pcbDesign = KiCadPCBParser.parse(widget.fileContents);
+    final KiCadPCBDesign pcbDesign = KiCadPCBParser.parse(
+      sExprString: widget.fileContents,
+      fileName: widget.fileName,
+    );
 
     // Navigate to the PCB design overview screen.
     WidgetsBinding.instance.addPostFrameCallback((_) => _navigateToDesignOverview(pcbDesign));

@@ -1,17 +1,15 @@
-import 'package:copper_app/screens/home/home_route.dart';
 import 'package:copper_app/services/database/database_service.dart';
 import 'package:copper_app/services/design_analysis/design_analysis_service.dart';
 import 'package:copper_app/services/design_analysis/models/analysis_response.dart';
 import 'package:copper_app/services/kicad_parser/kicad_component_pad.dart';
 import 'package:flutter/material.dart';
 import '../../services/kicad_parser/kicad_pcb_component.dart';
+import '../setup/setup_route.dart';
 import 'design_overview_route.dart';
 import 'design_overview_view.dart';
 
 /// Controller for the [DesignOverviewRoute].
 class DesignOverviewController extends State<DesignOverviewRoute> {
-  // TODO(Toglefritz): Check if information about the project is available from the cloud
-
   /// A controller for the text form field used to edit the project description.
   final TextEditingController projectDescriptionController = TextEditingController();
 
@@ -62,7 +60,7 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   void onHome() => Navigator.pushReplacement(
         context,
         MaterialPageRoute<void>(
-          builder: (BuildContext context) => const HomeRoute(),
+          builder: (BuildContext context) => const SetupRoute(),
         ),
       );
 

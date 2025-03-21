@@ -1,4 +1,5 @@
 import 'package:copper_app/services/kicad_parser/kicad_entity.dart';
+import 'package:flutter/material.dart';
 
 import 'kicad_layer.dart';
 
@@ -95,11 +96,16 @@ class KiCadPCBLayer extends KiCadEntity {
 
   /// Returns a [KiCadPCBLayer] object from a JSON representation.
   factory KiCadPCBLayer.fromJson(Map<String, dynamic> json) {
-    return KiCadPCBLayer(
-      index: json['index'] as int,
-      type: KiCadLayer.fromName(json['type'] as String),
-      purpose: json['purpose'] as String,
-    );
+    try {
+      return KiCadPCBLayer(
+        index: json['index'] as int,
+        type: json['type'] == null ? null : KiCadLayer.fromName(json['type'] as String),
+        purpose: json['purpose'] as String,
+      );
+    } catch (e) {
+      debugPrint('Failed to parse KiCadPCBLayer from JSON, $json, with error, $e');
+      throw FormatException('Failed to parse KiCadPCBLayer from JSON, $json, with error, $e');
+    }
   }
 
   /// Converts the [KiCadPCBLayer] object to a JSON representation.
