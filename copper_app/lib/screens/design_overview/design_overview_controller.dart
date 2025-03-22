@@ -34,6 +34,40 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   /// A getter for the project description.
   String? get projectDescription => widget.pcbDesign.description;
 
+  /// Handles requests by the user to delete the current PCB design.
+  ///
+  /// After a user provides this application with a PCB design file, and after the application parses it successfully,
+  /// a document is created in the Azure Cosmos DB database. This document contains information about the PCB design,
+  /// and allows the user to return to the design project in a later session.
+  ///
+  /// This method is called when the user requests to delete the current PCB design. It removes the document from the
+  /// database, and then navigates the user back to the home screen.
+  Future<void> onDeleteDesign() async {
+    // Show a dialog to confirm the deletion.
+    final bool? didConfirmDeletion = await DesignOverviewView.showDeleteDesignAlertDialog(context);
+
+    // If the user confirmed that they wish to delete the design, delete it.
+    if (didConfirmDeletion ?? false) {
+      try {
+        // Delete the design from the database.
+        await DatabaseService().deleteDesign(id: widget.pcbDesign.id!);
+
+        // After the design is successfully deleted, navigate the user back to the home screen.
+        onHome();
+      } catch (e) {
+        debugPrint('Failed to delete PCB design with error, $e');
+
+        // Show a SnackBar to the user to indicate that the deletion failed.
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to delete the PCB design'),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     // Set the initial value for the project description text field.

@@ -64,6 +64,39 @@ class DesignOverviewView extends StatelessWidget {
     );
   }
 
+  /// Displays an alert dialog confirming that the user wishes to delete the current PCB design.
+  static Future<bool?> showDeleteDesignAlertDialog(BuildContext context) async {
+    final bool? didConfirmDeletion = await showDialog<bool?>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.deleteDesign),
+        content: Text(AppLocalizations.of(context)!.deleteDesignPrompt),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+              style: TextStyle(
+                color: Theme.of(context).primaryColorLight,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(
+              AppLocalizations.of(context)!.delete,
+              style: TextStyle(
+                color: Colors.red[900],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return didConfirmDeletion;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +124,35 @@ class DesignOverviewView extends StatelessWidget {
             ),
           ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: Insets.medium),
+            child: MenuAnchor(
+              menuChildren: [
+                MenuItemButton(
+                  onPressed: state.onDeleteDesign,
+                  child: Text(AppLocalizations.of(context)!.deleteDesign),
+                ),
+              ],
+              alignmentOffset: const Offset(
+                -Insets.medium,
+                0.0,
+              ),
+              builder: (_, MenuController controller, Widget? child) {
+                return IconButton(
+                  onPressed: () {
+                    if (controller.isOpen) {
+                      controller.close();
+                    } else {
+                      controller.open();
+                    }
+                  },
+                  icon: const Icon(Icons.more_vert),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Center(

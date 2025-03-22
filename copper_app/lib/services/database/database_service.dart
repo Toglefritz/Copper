@@ -147,4 +147,42 @@ class DatabaseService {
       rethrow;
     }
   }
+
+  /// Deletes the PCB design project from the database.
+  Future<void> deleteDesign({required String id}) async {
+    debugPrint('Deleting PCB design with id, $id.');
+
+    // Send the request to the Copper backend to delete the PCB design.
+    try {
+      // Get a Bearer token from the authenticated session.
+      final String? bearerToken = AuthenticationService.cachedToken?.rawIdToken;
+
+      // If there is no token, throw an error.
+      if (bearerToken == null) {
+        throw Exception('No bearer token available for deleting PCB design');
+      }
+
+      final Response response = await delete(
+        // Add the ID as a query parameter to the URL.
+        Uri.parse('$_baseUrl/deleteItem?id=$id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $bearerToken',
+        },
+      );
+
+      // Check if the response is successful.
+      if (response.statusCode != 200) {
+        throw Exception(
+          'Failed to delete PCB design with status code, ${response.statusCode}, and message, ${response.body}',
+        );
+      }
+
+      debugPrint('Successfully deleted PCB design.');
+    } catch (e) {
+      debugPrint('Failed to delete PCB design with error, $e');
+
+      rethrow;
+    }
+  }
 }

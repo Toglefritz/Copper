@@ -7,6 +7,10 @@
   "@analysisResults": {
     "description": "Title of the analysis results history section."
   },
+  "cancel": "Cancel",
+    "@cancel": {
+        "description": "Text of the button that cancels an action."
+    },
   "componentsTitle": "Components",
   "@componentsTitle": {
     "description": "Title of the components section of the overview screen."
@@ -15,6 +19,18 @@
   "@connectionsTitle": {
     "description": "Title of the schematic view section of the overview screen."
   },
+  "delete": "Delete",
+    "@delete": {
+        "description": "Text of the button that deletes an item."
+    },
+  "deleteDesign": "Delete project",
+  "@deleteDesign": {
+    "description": "Text of the button that deletes the project."
+  },
+  "deleteDesignPrompt": "Are you sure you want to delete this project?",
+    "@deleteDesignPrompt": {
+        "description": "Prompt displayed when the user tries to delete a project."
+    },
   "descriptionTitle": "Description",
   "@descriptionTitle": {
     "description": "Title of the description section of the overview screen."

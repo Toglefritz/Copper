@@ -8,3 +8,4 @@ linter:
     prefer_int_literals: false
     avoid_setters_without_getters: false
     sort_constructors_first: false
+    avoid_catches_without_on_clauses: false

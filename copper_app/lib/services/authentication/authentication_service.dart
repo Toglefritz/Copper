@@ -88,8 +88,6 @@ class AuthenticationService {
         // Emit the user object on the auth state stream.
         _authStateController.add(user);
 
-      // Catch all exceptions of any kind.
-      // ignore: avoid_catches_without_on_clauses
       } catch (e) {
         debugPrint('Failed to refresh token: $e');
 

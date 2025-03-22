@@ -21,8 +21,6 @@ class SetupController extends State<SetupRoute> {
     try {
       designs = await DatabaseService().getDesigns();
     }
-    // TODO(Toglefritz): Handle specific exceptions.
-    // ignore: avoid_catches_without_on_clauses
     catch (e) {
       debugPrint('Failed to get projects with error, $e');
     }
