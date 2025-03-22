@@ -24,11 +24,10 @@ import 'package:http/http.dart';
 /// generate a response based on the prompt.
 ///
 /// After building the prompt, the service sends it to the Azure OpenAI Service LLM for analysis and receives a
-/// response. TODO continue documentation
+/// response.
 class DesignAnalysisService {
   /// Builds and sends a prompt to an Azure OpenAI Service LLM for analyzing a PCB design, and returns the analysis
   /// response.
-  // TODO(Toglefritz): Create class to represent the response from the LLM.
   Future<AnalysisResponse> analyzePCBDesign({
     required KiCadPCBDesign pcbDesign,
     required String userQuery,
