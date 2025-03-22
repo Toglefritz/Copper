@@ -450,7 +450,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "circuit_check_example.kicad_pro",
+    "filename": "copper_example_pcb.kicad_pro",
     "version": 3
   },
   "net_settings": {
