@@ -38,6 +38,7 @@ class KiCadPCBDesign extends KiCadEntity {
     required this.components,
     required this.nets,
     this.id,
+    this.description,
   });
 
   /// The file name from which the PCB design was parsed.
@@ -48,7 +49,7 @@ class KiCadPCBDesign extends KiCadEntity {
 
   /// A description of the PCB project. This description is provided by the user in the Copper app rather than
   /// coming from the PCB design file. It the user has not provided a description, this field will be empty.
-  String? projectDescription;
+  String? description;
 
   /// The version number of the KiCAD file format used to create this PCB design.
   ///
@@ -163,6 +164,9 @@ class KiCadPCBDesign extends KiCadEntity {
       // Get the ID of the design document.
       final String? id = json['id'] as String?;
 
+      // Get the description of the design.
+      final String? description = json['description'] as String?;
+
       // Get the version from the JSON data.
       final String? version = json['version'] as String?;
 
@@ -196,6 +200,7 @@ class KiCadPCBDesign extends KiCadEntity {
       return KiCadPCBDesign(
         fileName: fileName,
         id: id,
+        description: description,
         version: version,
         generator: generator,
         generatorVersion: generatorVersion,

@@ -71,6 +71,10 @@
   "@projectDescriptionTitle": {
     "description": "Title of the project description section of the overview screen."
   },
+  "projectsTitle": "Past Projects",
+  "@projectsTitle": {
+    "description": "Title of the past projects section of the overview screen."
+  },
   "unsupportedFileFormatError": "Unsupported file format. Please provide a PCB design file in the .kicad_pcb format.",
   "@unsupportedFileFormatError": {
     "description": "Error message displayed when a file is provided in an unsupported format."

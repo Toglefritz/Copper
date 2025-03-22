@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:copper_app/screens/design_overview/design_overview_route.dart';
 import 'package:copper_app/screens/home/home_route.dart';
 import 'package:copper_app/screens/home/home_view.dart';
 import 'package:copper_app/screens/parsing/parsing_route.dart';
 import 'package:copper_app/services/authentication/authentication_service.dart';
+import 'package:copper_app/services/kicad_parser/kicad_pcb_design.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -87,6 +89,18 @@ class HomeController extends State<HomeRoute> {
         builder: (BuildContext context) => ParsingRoute(
           fileName: fileName,
           fileContents: fileContents,
+        ),
+      ),
+    );
+  }
+
+  /// Handles the selection of a PCB design file from the list of the user's projects.
+  void onProjectSelected(KiCadPCBDesign selectedDesign) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => DesignOverviewRoute(
+          pcbDesign: selectedDesign,
         ),
       ),
     );

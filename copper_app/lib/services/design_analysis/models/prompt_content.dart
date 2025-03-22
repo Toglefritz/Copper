@@ -41,8 +41,8 @@ class PromptContent {
   }) {
     // If the user has provided a project description, add it to the prompt.
     String? projectDescription;
-    if (pcbDesign.projectDescription != null) {
-      projectDescription = 'The user has provided the following project description: ${pcbDesign.projectDescription}. ';
+    if (pcbDesign.description != null) {
+      projectDescription = 'The user has provided the following project description: ${pcbDesign.description}. ';
     }
 
     // Generate component descriptions from the parsed PCB design.

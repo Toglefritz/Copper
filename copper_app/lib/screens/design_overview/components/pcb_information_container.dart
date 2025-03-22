@@ -39,7 +39,7 @@ class PcbInformationContainer extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             trailing: Text(
-              state.widget.fileName,
+              state.widget.pcbDesign.fileName,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),

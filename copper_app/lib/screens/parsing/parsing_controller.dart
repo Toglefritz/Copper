@@ -38,7 +38,6 @@ class ParsingController extends State<ParsingRoute> {
       context,
       MaterialPageRoute<void>(
         builder: (context) => DesignOverviewRoute(
-          fileName: widget.fileName,
           pcbDesign: pcbDesign,
         ),
       ),

@@ -27,12 +27,12 @@ class DesignOverviewController extends State<DesignOverviewRoute> {
   /// A setter for the project description.
   set projectDescription(String? description) {
     setState(() {
-      widget.pcbDesign.projectDescription = description;
+      widget.pcbDesign.description = description;
     });
   }
 
   /// A getter for the project description.
-  String? get projectDescription => widget.pcbDesign.projectDescription;
+  String? get projectDescription => widget.pcbDesign.description;
 
   @override
   void initState() {

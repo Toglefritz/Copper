@@ -2,6 +2,7 @@ import 'package:copper_app/screens/home/components/pcb_file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../services/kicad_parser/kicad_pcb_design.dart';
 import '../../theme/insets.dart';
 import 'home_controller.dart';
 import 'home_route.dart';
@@ -74,10 +75,48 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
-      body: PCBFilePicker(
-        onFileSelected: state.handleFileSelected,
-        onDropzoneViewCreated: (DropzoneViewController controller) => state.dropzoneViewController = controller,
-        onDropFile: state.handleDropFile,
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          PCBFilePicker(
+            onFileSelected: state.handleFileSelected,
+            onDropzoneViewCreated: (DropzoneViewController controller) => state.dropzoneViewController = controller,
+            onDropFile: state.handleDropFile,
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.projectsTitle,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      decoration: TextDecoration.underline,
+                    ),
+              ),
+              Wrap(
+                children: List.generate(
+                  state.widget.designs.length,
+                  (int index) {
+                    // Get the current PCB design.
+                    final KiCadPCBDesign design = state.widget.designs[index];
+
+                    return Padding(
+                      padding: const EdgeInsets.all(Insets.small),
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.grab,
+                        child: GestureDetector(
+                          onTap: () => state.onProjectSelected(design),
+                          child: Chip(
+                            label: Text(design.fileName),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

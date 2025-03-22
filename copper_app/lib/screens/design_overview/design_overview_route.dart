@@ -13,13 +13,9 @@ import 'design_overview_controller.dart';
 class DesignOverviewRoute extends StatefulWidget {
   /// Creates an instance of [DesignOverviewRoute].
   const DesignOverviewRoute({
-    required this.fileName,
     required this.pcbDesign,
     super.key,
   });
-
-  /// The name of the PCB design file provided to the app.
-  final String fileName;
 
   /// An object representing information about the PCB design file.
   final KiCadPCBDesign pcbDesign;
