@@ -70,4 +70,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "copper_app"
-          output_location: "" # Empty because Flutter outputs static assets directly
+          output_location: "copper_app/build/web"
